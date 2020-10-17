@@ -6,16 +6,20 @@ from Users.jwtauth import verify
 import json
 import Users.views
 
+
 def agent_auth(fn):
-    def wrapped_func(request,*args,**kwargs):
+    def wrapped_func(request, *args, **kwargs):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
             return HttpResponse("401")
-        return fn(request,*args,**kwargs)
+        return fn(request, *args, **kwargs)
+
     return wrapped_func
-        
+
+
 @agent_auth
 def hello(request):
     return HttpResponse("Hello world !")
+
 
 @csrf_exempt
 def login(request):
@@ -23,4 +27,12 @@ def login(request):
     signIn_info = json.loads(data)
     ret = Users.views.signIn(**signIn_info)
 
-    return HttpResponse( json.dumps(ret, ensure_ascii=False) )
+    return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+
+@csrf_exempt
+def register(request):
+    data = request.body.decode('utf-8')
+    registerIn_info = json.loads(data)
+    ret = Users.views.registerIn(**registerIn_info)
+    return HttpResponse(json.dumps(ret, ensure_ascii=False))
