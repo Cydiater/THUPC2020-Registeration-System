@@ -7,7 +7,7 @@
     >
 
       <v-card>
-        <v-card-title class = 'pink darken-2 pink--text text--lighten-5'>
+        <v-card-title class = 'blue darken-2 blue--text text--lighten-5'>
           <span class="headline ">Login</span>
         </v-card-title>
         <v-card-text>

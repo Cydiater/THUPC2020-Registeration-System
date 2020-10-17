@@ -4,24 +4,24 @@
     <!-- Top Bar -->
 
     <v-app-bar
-      class = 'pink darken-3 pink--text text--lighten-5'
+      class = 'blue darken-3 blue--text text--lighten-5'
       dense
       app
       >
 
-      <v-app-bar-nav-icon @click = "showSidebar = !showSidebar" class = 'pink--text text--lighten-5'></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click = "showSidebar = !showSidebar" class = 'blue--text text--lighten-5'></v-app-bar-nav-icon>
       <v-toolbar-title>THUPC2020 Registeration System</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn 
-        class = 'pink darken-3 pink--text text--lighten-5'
+        class = 'blue darken-3 blue--text text--lighten-5'
         text
         >
         <span>Sign up</span>
       </v-btn>
 
       <v-btn 
-        class = 'pink darken-3 pink--text text--lighten-5'
+        class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'openLoginDialog'
         >
