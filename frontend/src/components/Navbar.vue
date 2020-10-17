@@ -19,7 +19,19 @@
     <v-navigation-drawer
       app
       v-model = 'showSidebar'
+      width = '400px'
       >
+
+      <v-card flat tile>
+        <v-img 
+          src = '@/assets/sideimg.jpg'
+          class="white--text align-end"
+          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+          >
+          <v-card-title v-text = 'sidebarTitle'></v-card-title>
+        </v-img>
+      </v-card>
+
       <v-list
         nav
         >
@@ -43,6 +55,7 @@ export default {
   data() {
     return {
       showSidebar: false,
+      sidebarTitle: 'Not logged in',
       links: [
         {
           text: 'Dashboard',
@@ -54,3 +67,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.bottom-gradient {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 100px);
+}
+</style>
