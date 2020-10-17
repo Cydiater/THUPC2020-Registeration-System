@@ -11,6 +11,22 @@
 
       <v-app-bar-nav-icon @click = "showSidebar = !showSidebar" class = 'pink--text text--lighten-5'></v-app-bar-nav-icon>
       <v-toolbar-title>THUPC2020 Registeration System</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn 
+        class = 'pink darken-3 pink--text text--lighten-5'
+        text
+        >
+        <span>Sign up</span>
+      </v-btn>
+
+      <v-btn 
+        class = 'pink darken-3 pink--text text--lighten-5'
+        text
+        @click = 'openLoginDialog'
+        >
+        <span class = 'font-weight-bold'>Login</span>
+      </v-btn>
 
     </v-app-bar>
 
@@ -25,8 +41,8 @@
       <v-card flat tile>
         <v-img 
           src = '@/assets/sideimg.jpg'
-          class="white--text align-end"
-          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+          class = "white--text align-end"
+          gradient = "to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
           >
           <v-card-title v-text = 'sidebarTitle'></v-card-title>
         </v-img>
@@ -46,12 +62,21 @@
 
     </v-navigation-drawer>
 
+    <LoginDialog />
+
   </nav>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
+import LoginDialog from '@/components/LoginDialog';
+
 export default {
   name: 'Navbar',
+  components: {
+    LoginDialog,
+  },
   data() {
     return {
       showSidebar: false,
@@ -64,6 +89,11 @@ export default {
         },
       ]
     }
+  },
+  methods: {
+    ...mapMutations([
+      'openLoginDialog',
+    ]),
   }
 }
 </script>
