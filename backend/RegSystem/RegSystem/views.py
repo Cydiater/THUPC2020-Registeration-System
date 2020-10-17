@@ -1,9 +1,19 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from Users.jwtauth import verify
+
 import json
 import Users.views
- 
+
+def agent_auth(fn):
+    def wrapped_func(request,*args,**kwargs):
+        if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
+            return HttpResponse("401")
+        return fn(request,*args,**kwargs)
+    return wrapped_func
+        
+@agent_auth
 def hello(request):
     return HttpResponse("Hello world !")
 

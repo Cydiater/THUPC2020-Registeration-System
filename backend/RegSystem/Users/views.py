@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from Users.models import user
 
+from .jwtauth import generate
+
 # Create your views here.
 
 def signIn(username, password):
@@ -9,7 +11,7 @@ def signIn(username, password):
     try:
         usr = user.objects.get(name = username)
         if(usr.password == password):
-            res['token'] = 'authenticated'
+            res['token'] = generate(username)
         else:
             res['message'] = 'wrong password'
     except :
