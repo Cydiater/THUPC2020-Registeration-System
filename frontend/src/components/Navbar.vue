@@ -70,8 +70,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import LoginDialog from '@/components/LoginDialog';
 import RegisterDialog from '@/components/RegisterDialog';
 
