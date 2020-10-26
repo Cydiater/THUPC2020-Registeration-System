@@ -7,8 +7,13 @@ import actions from './actions';
 import mutations from './mutations';
 
 const state = {
-  status: null,
+  status: {},
   token: null,
+  notification: {
+    show: false,
+    type: null,
+    message: null,
+  }
 };
 
 const store = new Vuex.Store({

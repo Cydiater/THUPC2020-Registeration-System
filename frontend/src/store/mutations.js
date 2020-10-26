@@ -1,8 +1,18 @@
+import Vue from 'vue';
+
 export default {
-  openLoginDialog(state) {
-    state.status = 'loggingIn';
+  notify(state, { type, message }) {
+    state.notification.show = true;
+    state.notification.type = type;
+    state.notification.message = message;
   },
-  closeLoginDialog(state) {
-    state.status = null;
+  toggleNotification(state, value) {
+    state.notification.show = value;
+  },
+  setStatus(state, status) {
+    Vue.set(state.status, status, true);
+  },
+  clearStatus(state, status) {
+    Vue.delete(state.status, status);
   }
 };
