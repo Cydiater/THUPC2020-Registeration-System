@@ -79,3 +79,15 @@ def getUserinfo(teamname):
             })
 
     return res
+
+def checkExistence(teamname):
+    res = {}
+    try:
+        user.objects.get(teamname=teamname)
+    except:
+        res['status'] = 'ok'
+        res['message'] = '用户名未注册'
+    else:
+        res['status'] = 'error'
+        res['message'] = '用户名已存在'
+    return res

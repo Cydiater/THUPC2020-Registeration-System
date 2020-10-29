@@ -7,14 +7,14 @@ import json
 import Users.views
 
 
-def agent_auth(fn):
+def user_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
             return HttpResponse("401")
         return fn(request, *args, **kwargs)
     return wrapped_func
 
-@agent_auth
+@user_auth
 def hello(request):
     return HttpResponse("Hello world !")
 
@@ -32,10 +32,16 @@ def register(request):
     ret = Users.views.registerIn(**registerIn_info)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
-@csrf_exempt
 def userinfo(request):
     teamname = request.GET.get('name')
     if teamname == None :
         return HttpResponse("404")
     ret = Users.views.getUserinfo(teamname)
+    return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+def checkExistence(request):
+    teamname = request.GET.get('teamname')
+    if teamname == None :
+        return HttpResponse("404")
+    ret = Users.views.checkExistence(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
