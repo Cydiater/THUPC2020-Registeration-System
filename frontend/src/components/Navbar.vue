@@ -16,6 +16,7 @@
       <v-btn 
         class = 'blue darken-3 blue--text text--lighten-5'
         text
+        @click = 'openRegisterDialog'
         >
         <span>Sign up</span>
       </v-btn>
@@ -63,19 +64,20 @@
     </v-navigation-drawer>
 
     <LoginDialog />
+    <RegisterDialog />
 
   </nav>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import LoginDialog from '@/components/LoginDialog';
+import RegisterDialog from '@/components/RegisterDialog';
 
 export default {
   name: 'Navbar',
   components: {
     LoginDialog,
+    RegisterDialog,
   },
   data() {
     return {
@@ -91,9 +93,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'openLoginDialog',
-    ]),
+    openLoginDialog() {
+      this.$store.commit('setStatus', 'loggingIn');
+    },
+    openRegisterDialog() {
+      this.$store.commit('setStatus', 'registering');
+    }
   }
 }
 </script>
