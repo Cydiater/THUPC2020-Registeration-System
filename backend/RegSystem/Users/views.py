@@ -23,7 +23,7 @@ def signIn(username, password):
 def registerIn(teamname, password,email,type,members):
     res = {}
     try:
-        usr = user.objects.get(name=teamname)
+        usr = user.objects.get(teamname=teamname)
         res['status'] = 'failed'
         res['message'] = '用户名已被注册'
     except:
@@ -39,19 +39,43 @@ def registerIn(teamname, password,email,type,members):
                     raise Exception('姓名太长')
                 if len(memb['school']) > 20 : 
                     raise Exception('学校名太长')
-            
+
         except Exception as e:
             res['status'] = 'failed'
             res['message'] = str(e)
         except:
             res['status'] = 'failed'
             res['message'] = 'unknown error : register'
+
         else:
             userId = user.objects.create(teamname=teamname, password=password, email=email, type=type).id
             for memb in members:
-                memberId = member.objects.create(name = memb['name'], school = memb['school'] ,gender = memb['gender'] ).id
+                memberId = member.objects.create(**member).id
                 user2member.objects.create(userid = userId, memberid = memberId)
 
             res['status'] = 'success'
             res['message'] = 'register succeeded'
+    return res
+
+def getUserinfo(teamname):
+    res = {}
+    try:
+        usr = user.objects.get(teamname=teamname)
+    except:
+        res['message'] = '用户名不存在'
+    else:
+        res['teamname'] = usr.teamname
+        res['email'] = usr.email
+        res['type'] = usr.type
+        res['isAdmin'] = usr.isAdmin
+        res['members'] = []
+
+        for edge in user2member.objects.filter(userid = usr.id):
+            memb = member.objects.get(id = edge.memberid)
+            res['members'].append({
+                'name' : memb.name,
+                'school' : memb.school,
+                'gender' : memb.gender
+            })
+
     return res
