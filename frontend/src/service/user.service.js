@@ -43,15 +43,18 @@ function logout() {
   localStorage.removeItem('token');
 }
 
-function register(username, password) {
+function register(username, password, email, type, members) {
   const requestOptions = {
     method: API.REGISTER.method,
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      username,
-      password
+      teamname: username,
+      password,
+      email,
+      type,
+      members,
     })
   };
   return fetch(API.REGISTER.url, requestOptions)
