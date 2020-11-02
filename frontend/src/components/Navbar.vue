@@ -89,6 +89,11 @@ export default {
           route: '/',
           icon: 'mdi-view-dashboard',
         },
+        {
+          text: 'Profile',
+          route: '/profile',
+          icon: 'mdi-information',
+        }
       ]
     }
   },

@@ -61,7 +61,6 @@ function register(username, password, email, type, members) {
   .then(handleResponse);
 }
 
-
 export default {
   login,
   logout,
