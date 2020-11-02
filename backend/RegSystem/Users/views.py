@@ -50,7 +50,7 @@ def registerIn(teamname, password,email,type,members):
         else:
             userId = user.objects.create(teamname=teamname, password=password, email=email, type=type).id
             for memb in members:
-                memberId = member.objects.create(**member).id
+                memberId = member.objects.create(**memb).id
                 user2member.objects.create(userid = userId, memberid = memberId)
 
             res['status'] = 'success'
