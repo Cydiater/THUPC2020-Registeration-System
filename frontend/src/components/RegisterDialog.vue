@@ -2,6 +2,7 @@
   <v-dialog
     v-model = 'isRegistering'
     max-width = '600px'
+    lazy-validation
     >
 
     <v-card>
@@ -39,11 +40,12 @@
                     <v-tab-item
                       class = 'mt-5'
                       >
+
                       <v-text-field
-                        label = 'Username'
-                        prepend-icon = "mdi-account"
+                        label = 'Team Name'
+                        prepend-icon = "mdi-account-group"
                         v-model = 'username'
-                        :rules = '[rules.rangeLength(6, 20)]'
+                        :rules = '[rules.rangeLength(3, 20)]'
                         >
                       </v-text-field>
 
@@ -73,25 +75,110 @@
                         >
                       </v-text-field>
 
+                      <v-select
+                        prepend-icon = "mdi-compare-vertical"
+                        v-model = 'type'
+                        label = 'Type'
+                        :items = '["A", "B", "C"]'
+                        >
+                      </v-select>
 
                     </v-tab-item>
 
                     <v-tab-item
                       class = 'mt-5'
-                      v-for = '(member, index) in members'
-                      :key = 'index'
                       >
+
                       <v-text-field
                         label = 'Member Name'
-                        prepend-icon = "mdi-account-outline"
-                        v-model = 'member.name'
+                        prepend-icon = "mdi-account"
+                        v-model = 'members[0].name'
                         :rules = '[rules.rangeLength(2, 10)]'
                         >
                       </v-text-field>
+
+                      <v-text-field
+                        label = 'School'
+                        prepend-icon = "mdi-school"
+                        v-model = 'members[0].school'
+                        :rules = '[rules.rangeLength(2, 100)]'
+                        >
+                      </v-text-field>
+
+                      <v-select
+                        :items = "['Male', 'Female']"
+                        label = 'Gender'
+                        prepend-icon = "mdi-gender-male-female"
+                        v-model = 'members[0].gender'
+                        required
+                        >
+                      </v-select>
+
+                    </v-tab-item>
+
+                    <v-tab-item
+                      class = 'mt-5'
+                      >
+
+                      <v-text-field
+                        label = 'Member Name'
+                        prepend-icon = "mdi-account"
+                        v-model = 'members[1].name'
+                        :rules = '[rules.rangeLength(2, 10)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'School'
+                        prepend-icon = "mdi-school"
+                        v-model = 'members[1].school'
+                        :rules = '[rules.rangeLength(2, 100)]'
+                        >
+                      </v-text-field>
+
+                      <v-select
+                        :items = "['Male', 'Female']"
+                        label = 'Gender'
+                        prepend-icon = "mdi-gender-male-female"
+                        v-model = 'members[1].gender'
+                        required
+                        >
+                      </v-select>
+
+                    </v-tab-item>
+
+                    <v-tab-item
+                      class = 'mt-5'
+                      >
+
+                      <v-text-field
+                        label = 'Member Name'
+                        prepend-icon = "mdi-account"
+                        v-model = 'members[2].name'
+                        :rules = '[rules.rangeLength(2, 10)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'School'
+                        prepend-icon = "mdi-school"
+                        v-model = 'members[2].school'
+                        :rules = '[rules.rangeLength(2, 100)]'
+                        >
+                      </v-text-field>
+
+                      <v-select
+                        :items = "['Male', 'Female']"
+                        label = 'Gender'
+                        prepend-icon = "mdi-gender-male-female"
+                        v-model = 'members[2].gender'
+                        required
+                        >
+                      </v-select>
+
                     </v-tab-item>
 
                 </v-tabs>
-
 
               </v-col>
 
@@ -111,7 +198,7 @@
           text
           :disabled = '!isFormValid'
           :loading = 'waitForRegister'
-          @click = 'registerRequest({ username, password, email })'
+          @click = 'registerRequest({ username, password, email, members, type })'
           >
           Sign up
         </v-btn>
@@ -134,15 +221,22 @@ export default {
       email: '',
       password: '',
       confirm_password: '',
+      type: 'A',
       members: [
         {
           name: '',
+          school: '',
+          gender: 'Male',
         },
         {
           name: '',
+          school: '',
+          gender: 'Male',
         },
         {
           name: '',
+          school: '',
+          gender: 'Male',
         },
       ],
       rules: {

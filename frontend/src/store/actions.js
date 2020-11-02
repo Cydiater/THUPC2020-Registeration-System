@@ -20,9 +20,9 @@ export default {
     commit('clearStatus', 'loggingIn');
     commit('notify', { type: 'error', message: error });
   },
-  registerRequest({ commit, dispatch }, { username, password, email }) {
+  registerRequest({ commit, dispatch }, { username, password, email, type, members }) {
     commit('setStatus', 'waitForRegister');
-    userService.register(username, password, email)
+    userService.register(username, password, email, type.toLowerCase(), members)
     .then(() => {
       dispatch('registerSuccess');
     }, error => {
