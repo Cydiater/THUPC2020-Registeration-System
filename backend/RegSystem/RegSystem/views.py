@@ -12,11 +12,14 @@ def user_auth(fn):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
             return HttpResponse("401")
         return fn(request, *args, **kwargs)
+
     return wrapped_func
+
 
 @user_auth
 def hello(request):
     return HttpResponse("Hello world !")
+
 
 @csrf_exempt
 def login(request):
@@ -25,6 +28,7 @@ def login(request):
     ret = Users.views.signIn(**signIn_info)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
+
 @csrf_exempt
 def register(request):
     data = request.body.decode('utf-8')
@@ -32,16 +36,37 @@ def register(request):
     ret = Users.views.registerIn(**registerIn_info)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
+
 def userinfo(request):
     teamname = request.GET.get('name')
-    if teamname == None :
+    if teamname == None:
         return HttpResponse("404")
     ret = Users.views.getUserinfo(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
+
 def checkExistence(request):
     teamname = request.GET.get('teamname')
-    if teamname == None :
+    if teamname == None:
         return HttpResponse("404")
     ret = Users.views.checkExistence(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+
+@csrf_exempt
+def postboard(request):
+    if request.method == 'GET':
+        ret = Users.views.getPostboard()
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
+    if request.method == 'POST':
+        data = request.body.decode('utf-8')
+        registerIn_info = json.loads(data)
+        dictionary = {}
+        try:
+            dictionary['id'] = registerIn_info['id']
+        except:
+            pass
+        dictionary['content'] = registerIn_info['content']
+        dictionary['author'] = registerIn_info['author']
+        ret = Users.views.postPostboard(dictionary)
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
