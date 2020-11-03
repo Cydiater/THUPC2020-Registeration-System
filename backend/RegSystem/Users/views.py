@@ -112,7 +112,6 @@ def getPostboard():
 
 
 def postPostboard(dictionary):
-    print(dictionary)
     if 'id' in dictionary:
         if dictionary['id'] >= post.objects.count():
             return {'status': 'error', 'msg': 'invalid id'}
