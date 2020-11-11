@@ -10,7 +10,7 @@ import Users.views
 def user_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
-            return HttpResponse("401")
+            return HttpResponse(status = 401)
         return fn(request, *args, **kwargs)
 
     return wrapped_func
@@ -40,7 +40,7 @@ def register(request):
 def userinfo(request):
     teamname = request.GET.get('name')
     if teamname == None:
-        return HttpResponse("404")
+        return HttpResponse(status = 404)
     ret = Users.views.getUserinfo(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
@@ -48,7 +48,7 @@ def userinfo(request):
 def checkExistence(request):
     teamname = request.GET.get('teamname')
     if teamname == None:
-        return HttpResponse("404")
+        return HttpResponse(status = 404)
     ret = Users.views.checkExistence(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
