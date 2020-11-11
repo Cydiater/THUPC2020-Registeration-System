@@ -4,16 +4,18 @@ export default {
   loginRequest({ commit, dispatch }, { username, password }) {
     commit('setStatus', 'waitForLogin');
     userService.login(username, password)
-    .then(() => {
-      dispatch('loginSuccess');
+    .then(res => {
+      dispatch('loginSuccess', res.token);
     }, error => {
       dispatch('loginFailed', error);
     });
   },
-  loginSuccess({ commit }) {
+  loginSuccess({ commit, dispatch }, token) {
     commit('clearStatus', 'waitForLogin');
     commit('clearStatus', 'loggingIn');
+    commit('setToken', token);
     commit('notify', { type: 'success', message: 'Login Success' });
+    dispatch('fetchUserInfo');
   },
   loginFailed({ commit }, error) {
     commit('clearStatus', 'waitForLogin');
@@ -38,5 +40,17 @@ export default {
     commit('clearStatus', 'waitForRegister');
     commit('clearStatus', 'registering');
     commit('notify', { type: 'error', message: error });
+  },
+  fetchUserInfo({ commit }) {
+    userService.userinfo()
+    .then(user => {
+      commit('setUser', user);
+    }, error => {
+      commit('notify', { type: 'error', message: error });
+    }) 
+  },
+  logout({ commit }) {
+    localStorage.removeItem('token');
+    commit('setToken', null);
   }
 };

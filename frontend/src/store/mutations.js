@@ -12,7 +12,13 @@ export default {
   setStatus(state, status) {
     Vue.set(state.status, status, true);
   },
+  setToken(state, token) {
+    state.token = token;
+  },
   clearStatus(state, status) {
     Vue.delete(state.status, status);
+  },
+  setUser(state, user) {
+    state.user = user;
   }
 };

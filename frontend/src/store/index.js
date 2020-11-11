@@ -5,21 +5,24 @@ Vue.use(Vuex);
 
 import actions from './actions';
 import mutations from './mutations';
+import getters from './getters';
 
 const state = {
   status: {},
-  token: null,
+  token: localStorage.getItem('token'),
   notification: {
     show: false,
     type: null,
     message: null,
-  }
+  },
+  user: null,
 };
 
 const store = new Vuex.Store({
   state,
   actions,
   mutations,
+  getters,
 });
 
 export default store;

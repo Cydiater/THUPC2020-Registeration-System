@@ -17,6 +17,7 @@
         class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'openRegisterDialog'
+        v-if = '!isLoggedIn()'
         >
         <span>Sign up</span>
       </v-btn>
@@ -25,8 +26,20 @@
         class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'openLoginDialog'
+        v-if = '!isLoggedIn()'
         >
         <span class = 'font-weight-bold'>Login</span>
+
+      </v-btn>
+
+      
+      <v-btn
+        class = 'blue darken-3 blue--text text--lighten-5'
+        text
+        @click = 'logout'
+        v-if = 'isLoggedIn()'
+        >
+        Logout
       </v-btn>
 
     </v-app-bar>
@@ -72,6 +85,7 @@
 <script>
 import LoginDialog from '@/components/LoginDialog';
 import RegisterDialog from '@/components/RegisterDialog';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Navbar',
@@ -82,7 +96,6 @@ export default {
   data() {
     return {
       showSidebar: false,
-      sidebarTitle: 'Not logged in',
       links: [
         {
           text: 'Dashboard',
@@ -103,6 +116,13 @@ export default {
     },
     openRegisterDialog() {
       this.$store.commit('setStatus', 'registering');
+    },
+    ...mapGetters(['isLoggedIn']),
+    ...mapActions(['logout']),
+  },
+  computed: {
+    sidebarTitle() {
+      return "Not logged in";
     }
   }
 }
