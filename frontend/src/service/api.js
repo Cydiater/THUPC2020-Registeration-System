@@ -6,5 +6,9 @@ export default {
   REGISTER: {
     url: '/auth/register',
     method: 'post',
+  },
+  USERINFO: {
+    url: '/api/userinfo',
+    method: 'get',
   }
 }

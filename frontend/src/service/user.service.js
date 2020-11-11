@@ -1,5 +1,6 @@
 import API from './api';
 import router from '@/router';
+import { authHeader } from '@/utils';
 
 function handleResponse(response) {
   return response.json()
@@ -61,8 +62,18 @@ function register(username, password, email, type, members) {
   .then(handleResponse);
 }
 
+function userinfo() {
+  const requestOptions = {
+    method: API.USERINFO.method,
+    headers: authHeader(),
+  };
+  return fetch(API.USERINFO.url, requestOptions)
+  .then(handleResponse);
+}
+
 export default {
   login,
   logout,
   register,
+  userinfo,
 }
