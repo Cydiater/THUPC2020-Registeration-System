@@ -68,5 +68,6 @@ def postboard(request):
             pass
         dictionary['content'] = registerIn_info['content']
         dictionary['author'] = registerIn_info['author']
+        dictionary['title'] = registerIn_info['title']
         ret = Users.views.postPostboard(dictionary)
         return HttpResponse(json.dumps(ret, ensure_ascii=False))

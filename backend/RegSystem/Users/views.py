@@ -118,6 +118,7 @@ def postPostboard(dictionary):
         target_post = post.objects.get(post_id=dictionary['id'])
         target_post.content = dictionary['content']
         target_post.author = dictionary['author']
+        target_post.title = dictionary['title']
         target_post.timestamp = time.time()
         target_post.save()
         return {'status': 'ok', 'msg': 'successfully edited'}
@@ -126,6 +127,7 @@ def postPostboard(dictionary):
         post.objects.create(content=dictionary['content'],
                             author=dictionary['author'],
                             timestamp=time.time(),
-                            post_id=new_id)
+                            post_id=new_id,
+                            title=dictionary['title'])
 
         return {'status': 'ok', 'msg': 'successfully added'}
