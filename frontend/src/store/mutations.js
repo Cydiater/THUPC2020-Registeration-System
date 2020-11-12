@@ -35,5 +35,16 @@ export default {
       };
     state.user = null;
     state.username = null;
+    state.announcements = [];
+    state.currentAnnouncement = null;
+  },
+  setAnnouncements(state, announcements) {
+    state.announcements = announcements;
+  },
+  toggleAnnouncement(state, announcement) {
+    announcement.show = !announcement.show;
+  },
+  setCurrentAnnouncement(state, announcement) {
+    state.currentAnnouncement = announcement;
   }
 };

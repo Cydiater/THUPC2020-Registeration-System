@@ -72,9 +72,39 @@ function userinfo(username) {
   .then(handleResponse);
 }
 
+function postAnnouncement(id, title, content, author, timestamp) {
+  const body = {
+    title,
+    content,
+    author,
+    timestamp,
+  };
+  if (id === 0 || id)
+    body.id = id;
+
+  const requestOptions = {
+    method: API.POSTANNOUNCEMENT.method,
+    headers: authHeader(),
+    body: JSON.stringify(body)
+  };
+  return fetch(API.POSTANNOUNCEMENT.url, requestOptions)
+  .then(handleResponse);
+}
+
+function getAnnouncements() {
+  const requestOptions = {
+    method: API.GETANNOUNCEMENTS.method,
+    headers: authHeader(),
+  };
+  return fetch(API.GETANNOUNCEMENTS.url, requestOptions)
+  .then(handleResponse);
+}
+
 export default {
   login,
   logout,
   register,
   userinfo,
+  postAnnouncement,
+  getAnnouncements,
 }

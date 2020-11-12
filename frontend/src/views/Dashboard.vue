@@ -9,6 +9,8 @@
 
       <v-list-item
         class = 'my-2'
+        v-for = 'announcement of announcements'
+        :key = 'announcement.post_id'
         >
 
         <v-card
@@ -16,37 +18,44 @@
           width = '800px'
           >
 
-          <v-card-title>
-            欢迎报名 THUPC2020
+          <v-card-title
+            class = 'primary--text font-weight-bold'
+            >
+            {{announcement.title}}
           </v-card-title>
 
           <v-card-subtitle 
             >
-            admin, 2020 年 11 月 11 日
+            {{announcement.author}} at {{ announcement.timestamp | formatTime }}
           </v-card-subtitle>
 
           <v-card-actions>
 
             <v-spacer></v-spacer>
 
+            <v-btn icon @click = 'openEADialog(announcement)'>
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+
             <v-btn
               icon
-              @click="show = !show"
+              @click="toggleAnnouncement(announcement)"
               >
-              <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+              <v-icon>{{ announcement.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
             </v-btn>
+
           </v-card-actions>
 
           <v-expand-transition>
 
-            <div v-show="show">
+            <div v-show="announcement.show">
               <v-divider></v-divider>
 
               <v-card-text>
 
                 <vue-markdown
                   mode = 'viewer'
-                  :source = 'content'
+                  :source = 'announcement.content'
                 >
                 </vue-markdown>
 
@@ -67,39 +76,47 @@
       bottom
       right
       @click = 'openPADialog'
-      v-if = 'isLoggedIn'
       >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
 
     <PostAnnouncement />
+    <EditAnnouncement />
 
   </v-card>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapMutations } from 'vuex';
 import PostAnnouncement from '@/components/PostAnnouncement';
+import EditAnnouncement from '@/components/EditAnnouncement';
 
 export default {
   name: "Dashboard",
   components: {
     VueMarkdown,
     PostAnnouncement,
+    EditAnnouncement,
   },
   data() {
     return {
-      text: "",
-      show: false,
-      content: 'markdown test **bold**',
-    };
+      show: [],
+    }
   },
   methods: {
-    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['isAdmin', 'isLoggedIn']),
+    ...mapMutations(['toggleAnnouncement']),
     openPADialog() {
       this.$store.commit('setStatus', 'postingAnnouncement');
+    },
+    openEADialog(announcement) {
+      this.$store.commit('setCurrentAnnouncement', announcement);
+      this.$store.commit('setStatus', 'editingAnnouncement');
     }
+  },
+  computed: {
+    ...mapState(['announcements'])
   },
   created() {
     if (this.isLoggedIn())

@@ -10,5 +10,13 @@ export default {
   USERINFO: {
     url: '/api/userinfo',
     method: 'get',
+  },
+  POSTANNOUNCEMENT: {
+    url: '/api/postboard',
+    method: 'post',
+  },
+  GETANNOUNCEMENTS: {
+    url: '/api/postboard',
+    method: 'get',
   }
 }

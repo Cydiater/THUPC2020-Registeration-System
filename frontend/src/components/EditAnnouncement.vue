@@ -1,12 +1,12 @@
 <template>
   <v-dialog
-    v-model = 'isPostingAnnouncement'
+    v-model = 'isEditingAnnouncement'
     max-width = "900px"
     height = '90%'
     >
     <v-card>
       <v-card-title class = 'headline blue darken-2 blue--text text--lighten-5'>
-        Post Announcement
+        Edit Announcement
       </v-card-title>
       <v-card-text
         >
@@ -77,7 +77,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text :disabled = '!isFormValid' color = 'primary' :loading = 'waitForPostAnnouncement' @click = 'postAnnouncement({ title, author, content, timestamp })'>Post</v-btn>
+         <v-btn text :loading = 'waitForDeleteAnnouncement' @click = 'deleteAnnouncement(id)'>Delete</v-btn>
+        <v-btn text :disabled = '!isFormValid' color = 'primary' :loading = 'waitForPostAnnouncement' @click = 'postAnnouncement({ id, title, author, content, timestamp })'>Post</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -88,7 +89,7 @@ import VueMarkdown from 'vue-markdown';
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'PostAnnouncement',
+  name: 'EditAnnouncement',
   components: {
     VueMarkdown,
   },
@@ -98,6 +99,7 @@ export default {
       title: '',
       author: '',
       content: '',
+      id: 0,
       timestamp: new Date().getTime(),
       rules: {
         rangeLength(lowerbound, upperbound) {
@@ -111,15 +113,23 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postAnnouncement']),
+    ...mapActions(['postAnnouncement', 'deleteAnnouncement']),
   },
   computed: {
-    isPostingAnnouncement: {
+    isEditingAnnouncement: {
       get() {
-        return Boolean(this.$store.state.status.postingAnnouncement);
+        const ok = Boolean(this.$store.state.status.editingAnnouncement);
+        if (ok) {
+          this.title = this.$store.state.currentAnnouncement.title;
+          this.id = this.$store.state.currentAnnouncement.post_id;
+          this.author = this.$store.state.currentAnnouncement.author;
+          this.content = this.$store.state.currentAnnouncement.content;
+          this.timestamp = this.$store.state.currentAnnouncement.timestamp;
+        }
+        return Boolean(this.$store.state.status.editingAnnouncement);
       },
       set(value) {
-        this.$store.commit(value ? 'setStatus' : 'clearStatus', 'postingAnnouncement');
+        this.$store.commit(value ? 'setStatus' : 'clearStatus', 'editingAnnouncement');
       }
     },
     formatTime() {
@@ -128,6 +138,9 @@ export default {
     },
     waitForPostAnnouncement() {
       return Boolean(this.$store.state.status.waitForPostAnnouncement);
+    },
+    waitForDeleteAnnouncement() {
+      return Boolean(this.$store.state.status.waitForDeleteAnnouncement);
     }
   }
 }

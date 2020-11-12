@@ -10,6 +10,15 @@ Vue.config.productionTip = false
 
 Vue.use(VueMarkdown);
 
+Vue.filter('formatTime', timestamp => {
+  const current = new Date(timestamp);
+  let year = current.getFullYear();
+  let month = current.getMonth() + 1;
+  let day = current.getDate();
+  return year + '/' + month + '/' + day;
+});
+
+
 new Vue({
   vuetify,
   router,

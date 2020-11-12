@@ -66,7 +66,7 @@
         nav
         >
 
-        <v-list-item link v-for = 'link in links' :key = 'link.text'>
+        <v-list-item link v-for = 'link in links' :key = 'link.text' @click = '$router.push(link.route)'>
           <v-list-item-icon>
             <v-icon v-text = 'link.icon'></v-icon>
           </v-list-item-icon>

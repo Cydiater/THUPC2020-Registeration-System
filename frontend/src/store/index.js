@@ -15,8 +15,10 @@ const state = {
     type: null,
     message: null,
   },
+  username: localStorage.getItem('username'),
   user: null,
-  username: null,
+  announcements: [],
+  currentAnnouncement: null,
 };
 
 const store = new Vuex.Store({
