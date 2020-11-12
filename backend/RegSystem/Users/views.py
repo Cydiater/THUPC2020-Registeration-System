@@ -107,6 +107,7 @@ def getPostboard():
         dictionary['author'] = p.author
         dictionary['timestamp'] = p.timestamp
         dictionary['post_id'] = p.post_id
+        dictionary['title'] = p.title
         return_list.append(dictionary)
     return return_list
 
