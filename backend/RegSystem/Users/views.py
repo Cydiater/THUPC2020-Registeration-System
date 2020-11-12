@@ -116,6 +116,10 @@ def postPostboard(dictionary):
     if 'id' in dictionary:
         if dictionary['id'] >= post.objects.count():
             return {'status': 'error', 'msg': 'invalid id'}
+        if dictionary['content'] == '' or dictionary['content'] == None:
+            target_post = post.objects.get(post_id=dictionary['id'])
+            target_post.delete()
+            return {'status': 'ok', 'msg': 'successfully deleted'}
         target_post = post.objects.get(post_id=dictionary['id'])
         target_post.content = dictionary['content']
         target_post.author = dictionary['author']
