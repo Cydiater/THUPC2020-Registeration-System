@@ -119,14 +119,7 @@ export default {
     isEditingAnnouncement: {
       get() {
         const ok = Boolean(this.$store.state.status.editingAnnouncement);
-        if (ok) {
-          this.title = this.$store.state.currentAnnouncement.title;
-          this.id = this.$store.state.currentAnnouncement.post_id;
-          this.author = this.$store.state.currentAnnouncement.author;
-          this.content = this.$store.state.currentAnnouncement.content;
-          this.timestamp = this.$store.state.currentAnnouncement.timestamp;
-        }
-        return Boolean(this.$store.state.status.editingAnnouncement);
+        return ok;
       },
       set(value) {
         this.$store.commit(value ? 'setStatus' : 'clearStatus', 'editingAnnouncement');
@@ -141,6 +134,17 @@ export default {
     },
     waitForDeleteAnnouncement() {
       return Boolean(this.$store.state.status.waitForDeleteAnnouncement);
+    }
+  },
+  watch: {
+    isEditingAnnouncement(value) {
+      if (value) {
+        this.title = this.$store.state.currentAnnouncement.title;
+        this.id = this.$store.state.currentAnnouncement.post_id;
+        this.author = this.$store.state.currentAnnouncement.author;
+        this.content = this.$store.state.currentAnnouncement.content;
+        this.timestamp = this.$store.state.currentAnnouncement.timestamp;
+      }
     }
   }
 }
