@@ -20,5 +20,20 @@ export default {
   },
   setUser(state, user) {
     state.user = user;
+  },
+  setUsername(state, username) {
+    state.username = username;
+    localStorage.setItem('username', username);
+  },
+  clearAll(state) {
+    state.status = {};
+    state.token = null;
+    state.notification =  {
+        show: false,
+        type: null,
+        message: null,
+      };
+    state.user = null;
+    state.username = null;
   }
 };

@@ -85,7 +85,7 @@
 <script>
 import LoginDialog from '@/components/LoginDialog';
 import RegisterDialog from '@/components/RegisterDialog';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
   name: 'Navbar',
@@ -121,7 +121,10 @@ export default {
     ...mapActions(['logout']),
   },
   computed: {
+    ...mapState(['user']),
     sidebarTitle() {
+      if (this.user) 
+        return this.user.teamname;
       return "Not logged in";
     }
   }

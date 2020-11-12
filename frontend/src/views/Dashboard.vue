@@ -44,12 +44,11 @@
 
               <v-card-text>
 
-                <Editor
+                <vue-markdown
                   mode = 'viewer'
-                  :value = 'content'
+                  :source = 'content'
                 >
-
-                </Editor>
+                </vue-markdown>
 
               </v-card-text>
 
@@ -79,21 +78,21 @@
 </template>
 
 <script>
-import { Editor } from 'vuetify-markdown-editor';
+import VueMarkdown from 'vue-markdown';
 import { mapGetters } from 'vuex';
 import PostAnnouncement from '@/components/PostAnnouncement';
 
 export default {
   name: "Dashboard",
   components: {
-    Editor,
+    VueMarkdown,
     PostAnnouncement,
   },
   data() {
     return {
       text: "",
       show: false,
-      content: 'markdown test *bold*',
+      content: 'markdown test **bold**',
     };
   },
   methods: {
@@ -104,7 +103,14 @@ export default {
   },
   created() {
     if (this.isLoggedIn())
-      this.$store.dispatch('fetchUserInfo');
+      this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
   }
 };
 </script>
+
+<style>
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+</style>

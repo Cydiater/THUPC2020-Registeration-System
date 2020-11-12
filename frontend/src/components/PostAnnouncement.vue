@@ -24,14 +24,22 @@
               </v-text-field>
             </v-col>
 
-            <v-col>
-              <Editor
-                mode = 'preview'
-                v-model = 'content'
-                :emoji = 'false'
+            <v-col
+              cols = '6'
               >
+              <v-textarea
+                v-model = 'content'
+                ></v-textarea>
+            </v-col>
 
-              </Editor>
+            <v-col
+              cols = '6'
+              >
+              <vue-markdown
+                :source = 'content'
+                >
+              </vue-markdown>
+
             </v-col>
 
           </v-row>
@@ -44,12 +52,12 @@
 </template>
 
 <script>
-import { Editor } from 'vuetify-markdown-editor';
+import VueMarkdown from 'vue-markdown';
 
 export default {
   name: 'PostAnnouncement',
   components: {
-    Editor,
+    VueMarkdown,
   },
   data() {
     return {
@@ -69,3 +77,10 @@ export default {
   }
 }
 </script>
+
+<style>
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+</style>

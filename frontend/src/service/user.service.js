@@ -42,6 +42,7 @@ function login(username, password) {
 
 function logout() {
   localStorage.removeItem('token');
+  localStorage.removeItem('username');
 }
 
 function register(username, password, email, type, members) {
@@ -62,12 +63,12 @@ function register(username, password, email, type, members) {
   .then(handleResponse);
 }
 
-function userinfo() {
+function userinfo(username) {
   const requestOptions = {
     method: API.USERINFO.method,
     headers: authHeader(),
   };
-  return fetch(API.USERINFO.url, requestOptions)
+  return fetch(API.USERINFO.url + '?name=' + username, requestOptions)
   .then(handleResponse);
 }
 

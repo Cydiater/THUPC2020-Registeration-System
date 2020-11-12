@@ -16,6 +16,7 @@ const state = {
     message: null,
   },
   user: null,
+  username: null,
 };
 
 const store = new Vuex.Store({

@@ -3,6 +3,7 @@ import { userService } from '@/service';
 export default {
   loginRequest({ commit, dispatch }, { username, password }) {
     commit('setStatus', 'waitForLogin');
+    commit('setUsername', username);
     userService.login(username, password)
     .then(res => {
       dispatch('loginSuccess', res.token);
@@ -41,8 +42,8 @@ export default {
     commit('clearStatus', 'registering');
     commit('notify', { type: 'error', message: error });
   },
-  fetchUserInfo({ commit }) {
-    userService.userinfo()
+  fetchUserInfo({ commit }, username) {
+    userService.userinfo(username)
     .then(user => {
       commit('setUser', user);
     }, error => {
@@ -50,7 +51,7 @@ export default {
     }) 
   },
   logout({ commit }) {
-    localStorage.removeItem('token');
-    commit('setToken', null);
+    userService.logout();
+    commit('clearAll');
   }
 };
