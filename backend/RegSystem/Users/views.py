@@ -128,7 +128,10 @@ def postPostboard(dictionary):
         target_post.save()
         return {'status': 'ok', 'msg': 'successfully edited'}
     else:
-        new_id = post.objects.all().order_by('-post_id')[0].post_id + 1
+        if post.objects.count() == 0:
+            new_id = 0
+        else:
+            new_id = post.objects.all().order_by('-post_id')[0].post_id + 1
         post.objects.create(content=dictionary['content'],
                             author=dictionary['author'],
                             timestamp=time.time(),
