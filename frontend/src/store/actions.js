@@ -55,11 +55,13 @@ export default {
     userService.logout();
     commit('clearAll');
   },
-  deleteAnnouncement({ commit }, id) {
+  deleteAnnouncement({ commit, dispatch }, id) {
     commit('setStatus', 'waitForDeleteAnnouncement');
     userService.postAnnouncement(id, '', '', '', '') 
     .then(() => {
       commit('clearStatus', 'waitForDeleteAnnouncement');
+      commit('clearStatus', 'editingAnnouncement');
+      dispatch('getAnnouncements');
     }, error => {
       commit('clearStatus', 'waitForDeleteAnnouncement');
       commit('notify', { type: 'error', message: error });
