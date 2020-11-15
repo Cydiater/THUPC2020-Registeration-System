@@ -255,7 +255,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Profile',
@@ -313,11 +313,19 @@ export default {
   },
   computed: {
     ...mapGetters(['isLoggedIn']),
+    ...mapState(['user']),
   },
   created() {
     this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
-    this.username = this.$store.state.user.teamname;
-    this.type = this.$store.state.user.type.toUpperCase();
+  },
+  watch: {
+    user() {
+      if (this.$store.state.user) {
+        this.username = this.$store.state.user.teamname;
+        this.type = this.$store.state.user.type.toUpperCase();
+        this.members = this.$store.state.user.members;
+      }
+    }
   }
 }
 </script>
