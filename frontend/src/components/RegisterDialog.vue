@@ -75,6 +75,12 @@
                         >
                       </v-select>
 
+                      <p class = 'text-caption'>
+                        A 类：队伍中的所有选手都为清华大学在校学生 <br />
+                        B 类：队伍中的所有选手都为大学在校学生，但存在不是清华大学在校学生的选手 <br />
+                        C 类：其他队伍
+                      </p>
+
                     </v-tab-item>
 
                     <v-tab-item
