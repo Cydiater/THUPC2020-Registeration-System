@@ -119,6 +119,7 @@ export default {
     ...mapState(['announcements'])
   },
   created() {
+    this.$store.dispatch('getAnnouncements');
     if (this.isLoggedIn())
       this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
   }

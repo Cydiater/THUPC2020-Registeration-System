@@ -24,7 +24,7 @@
                     v-model = 'username'
                     label = "Username"
                     prepend-icon = "mdi-account"
-                    :rules = '[rules.rangeLength(6, 20)]'
+                    :rules = '[rules.rangeLength(3, 20)]'
                     ></v-text-field>
                 </v-col>
 

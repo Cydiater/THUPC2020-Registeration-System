@@ -26,7 +26,11 @@ export default {
   registerRequest({ commit, dispatch }, { username, password, email, type, members }) {
     commit('setStatus', 'waitForRegister');
     userService.register(username, password, email, type.toLowerCase(), members)
-    .then(() => {
+    .then(res => {
+      if (res.status == 'failed') {
+        dispatch('registerFailed', res.message);
+        return;
+      }
       dispatch('registerSuccess');
     }, error => {
       dispatch('registerFailed', error);
@@ -42,14 +46,13 @@ export default {
     commit('clearStatus', 'registering');
     commit('notify', { type: 'error', message: error });
   },
-  fetchUserInfo({ commit, dispatch }, username) {
+  fetchUserInfo({ commit}, username) {
     userService.userinfo(username)
     .then(user => {
       commit('setUser', user);
     }, error => {
       commit('notify', { type: 'error', message: error });
     });
-    dispatch('getAnnouncements');
   },
   logout({ commit }) {
     userService.logout();
