@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from Users.jwtauth import verify
+from Users.jwtauth import *
 
 import json
 import Users.views
@@ -12,7 +12,20 @@ def user_auth(fn):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
             return HttpResponse(status = 401)
         return fn(request, *args, **kwargs)
+    return wrapped_func
 
+def admin_auth(fn):
+    def wrapped_func(request, *args, **kwargs):
+        if verify_admin(request.META.get("HTTP_AUTHORIZATION")) == False:
+            return HttpResponse(status = 401)
+        return fn(request, *args, **kwargs)
+    return wrapped_func
+
+def admin_post_auth(fn):
+    def wrapped_func(request, *args, **kwargs):
+        if request.method=='POST' and verify_admin(request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
+            return HttpResponse(status = 401)
+        return fn(request, *args, **kwargs)
     return wrapped_func
 
 
@@ -52,9 +65,10 @@ def checkExistence(request):
     ret = Users.views.checkExistence(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
-
 @csrf_exempt
+@admin_post_auth
 def postboard(request):
+    print("get in ")
     if request.method == 'GET':
         ret = Users.views.getPostboard()
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
