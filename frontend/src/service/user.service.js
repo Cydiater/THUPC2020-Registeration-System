@@ -100,6 +100,16 @@ function getAnnouncements() {
   .then(handleResponse);
 }
 
+function editProfile(members) {
+  const requestOptions = {
+    method: API.EDITPROFILE.url,
+    headers: authHeader(),
+    body: JSON.stringify({ members }),
+  };
+  return fetch(API.GETANNOUNCEMENTS.url, requestOptions)
+  .then(handleResponse);
+}
+
 export default {
   login,
   logout,
@@ -107,4 +117,5 @@ export default {
   userinfo,
   postAnnouncement,
   getAnnouncements,
+  editProfile,
 }

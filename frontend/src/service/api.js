@@ -18,5 +18,9 @@ export default {
   GETANNOUNCEMENTS: {
     url: '/api/postboard',
     method: 'get',
+  },
+  EDITPROFILE: {
+    url: '/api/userinfo',
+    method: 'post',
   }
 }

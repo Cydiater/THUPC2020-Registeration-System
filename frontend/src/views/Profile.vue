@@ -28,6 +28,8 @@
           v-if = 'this.$store.state.user'
           >
 
+          <v-form v-model = 'isFormValid'>
+
           <v-row>
 
             <v-col
@@ -85,7 +87,6 @@
                     prepend-icon="mdi-email"
                     v-model = 'members[0].email'
                     :rules = '[rules.checkEmail]'
-                    readonly
                     >
                   </v-text-field>
 
@@ -117,7 +118,6 @@
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
                     v-model = 'members[0].gender'
-                    readonly
                     >
                   </v-select>
 
@@ -141,7 +141,6 @@
                     prepend-icon="mdi-email"
                     v-model = 'members[1].email'
                     :rules = '[rules.checkEmail]'
-                    readonly
                     >
                   </v-text-field>
 
@@ -173,7 +172,6 @@
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
                     v-model = 'members[1].gender'
-                    readonly
                     >
                   </v-select>
 
@@ -196,7 +194,6 @@
                     prepend-icon="mdi-email"
                     v-model = 'members[2].email'
                     :rules = '[rules.checkEmail]'
-                    readonly
                     >
                   </v-text-field>
 
@@ -228,7 +225,6 @@
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
                     v-model = 'members[2].gender'
-                    readonly
                     >
                   </v-select>
 
@@ -240,13 +236,15 @@
 
           </v-row>
 
+          </v-form>
+
         </v-container>
 
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click = 'editProfile' color = 'primary'>Update</v-btn>
+        <v-btn text :disabled = '!isFormValid' @click = 'editProfile( members )' color = 'primary' :loading = 'waitForEditingProfile'>Update</v-btn>
       </v-card-actions>
 
     </v-card>
@@ -255,12 +253,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Profile',
   data() {
     return {
+      isFormValid: false,
       username: '',
       type: 'A',
       members: [
@@ -314,6 +313,12 @@ export default {
   computed: {
     ...mapGetters(['isLoggedIn']),
     ...mapState(['user']),
+    waitForEditingProfile() {
+      return Boolean(this.$store.state.status.waitForEditingProfile);
+    }
+  },
+  methods: {
+    ...mapActions(['editProfile']),
   },
   created() {
     this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
