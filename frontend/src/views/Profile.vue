@@ -333,7 +333,8 @@ export default {
     user() {
       if (this.$store.state.user) {
         this.username = this.$store.state.user.teamname;
-        this.type = this.$store.state.user.type.toUpperCase();
+        if (this.$store.state.user.type)
+          this.type = this.$store.state.user.type;
         this.members = this.$store.state.user.members;
       }
     }
