@@ -37,3 +37,10 @@ def verify_admin(jwt_token):
         return usr.isAdmin
     except:
         return False
+
+def get_username_jwt(jwt_token):
+    try:
+        data = jwt.decode(jwt_token, SECRET_KEY, algorithms='HS256')
+        return data['username']
+    except:
+        return 'unknown error'

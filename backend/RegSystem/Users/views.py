@@ -96,6 +96,28 @@ def checkExistence(teamname):
         res['message'] = '用户名已存在'
     return res
 
+def modifyMemberinfo(teamname, members):
+    res={}
+
+    try:
+        userId = user.objects.get(teamname=teamname).id
+
+        for edge in user2member.objects.filter(userid=usr.id):
+            memb = member.objects.get(id=edge.memberid)
+            memb.delete()
+            edge.delete()
+            memb.save()
+            edge.save()
+
+        for memb in members:
+            memberId = member.objects.create(**memb).id
+            user2member.objects.create(userid=userId, memberid=memberId)
+
+        res['status'] = 'success'
+        res['message'] = 'register succeeded'
+    except:
+        res['status'] = 'failed'
+        res['message'] = 'modify error'
 
 def getPostboard():
     return_list = []
