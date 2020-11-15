@@ -11,12 +11,12 @@ class user(models.Model):
 
 
 class member(models.Model):
-    name = models.CharField(max_length=10)
     school = models.CharField(max_length=20)
+    name = models.CharField(max_length=10)
     gender = models.CharField(max_length=10)
     email = models.CharField(max_length=30, default='')
-    phone = models.CharField(max_length=30, default='')
     localtion = models.CharField(max_length=30, default='')
+    phone = models.CharField(max_length=30, default='')
 
 
 class user2member(models.Model):

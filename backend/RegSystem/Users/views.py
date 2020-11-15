@@ -50,7 +50,6 @@ def registerIn(teamname, password, email, type, members):
         else:
             userId = user.objects.create(teamname=teamname,
                                          password=password,
-                                         email=email,
                                          type=type).id
             for memb in members:
                 memberId = member.objects.create(**memb).id

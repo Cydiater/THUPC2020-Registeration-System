@@ -10,22 +10,28 @@ import Users.views
 def user_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
-            return HttpResponse(status = 401)
+            return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
+
     return wrapped_func
+
 
 def admin_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if verify_admin(request.META.get("HTTP_AUTHORIZATION")) == False:
-            return HttpResponse(status = 401)
+            return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
+
     return wrapped_func
+
 
 def admin_post_auth(fn):
     def wrapped_func(request, *args, **kwargs):
-        if request.method=='POST' and verify_admin(request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
-            return HttpResponse(status = 401)
+        if request.method == 'POST' and verify_admin(
+                request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
+            return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
+
     return wrapped_func
 
 
@@ -53,7 +59,7 @@ def register(request):
 def userinfo(request):
     teamname = request.GET.get('name')
     if teamname == None:
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
     ret = Users.views.getUserinfo(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
@@ -61,9 +67,10 @@ def userinfo(request):
 def checkExistence(request):
     teamname = request.GET.get('teamname')
     if teamname == None:
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
     ret = Users.views.checkExistence(teamname)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
 
 @csrf_exempt
 @admin_post_auth
