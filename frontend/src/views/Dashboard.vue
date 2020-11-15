@@ -33,7 +33,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn icon @click = 'openEADialog(announcement)'>
+            <v-btn icon v-if = 'isAdmin()' @click = 'openEADialog(announcement)'>
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
 
@@ -76,6 +76,7 @@
       bottom
       right
       @click = 'openPADialog'
+      v-if = 'isAdmin()'
       >
       <v-icon>mdi-plus</v-icon>
     </v-btn>

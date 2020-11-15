@@ -67,13 +67,6 @@
                         >
                       </v-text-field>
 
-                      <v-text-field
-                        label = 'Email'
-                        prepend-icon="mdi-email"
-                        v-model = 'email'
-                        :rules = '[rules.checkEmail]'
-                        >
-                      </v-text-field>
 
                       <v-select
                         prepend-icon = "mdi-compare-vertical"
@@ -94,6 +87,14 @@
                         prepend-icon = "mdi-account"
                         v-model = 'members[0].name'
                         :rules = '[rules.rangeLength(2, 10)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Email'
+                        prepend-icon="mdi-email"
+                        v-model = 'members[0].email'
+                        :rules = '[rules.checkEmail]'
                         >
                       </v-text-field>
 
@@ -129,6 +130,14 @@
                       </v-text-field>
 
                       <v-text-field
+                        label = 'Email'
+                        prepend-icon="mdi-email"
+                        v-model = 'members[1].email'
+                        :rules = '[rules.checkEmail]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
                         label = 'School'
                         prepend-icon = "mdi-school"
                         v-model = 'members[1].school'
@@ -156,6 +165,14 @@
                         prepend-icon = "mdi-account"
                         v-model = 'members[2].name'
                         :rules = '[rules.rangeLength(2, 10)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Email'
+                        prepend-icon="mdi-email"
+                        v-model = 'members[2].email'
+                        :rules = '[rules.checkEmail]'
                         >
                       </v-text-field>
 
@@ -218,7 +235,6 @@ export default {
     return {
       isFormValid: false,
       username: '',
-      email: '',
       password: '',
       confirm_password: '',
       type: 'A',
@@ -227,16 +243,19 @@ export default {
           name: '',
           school: '',
           gender: 'Male',
+          email: '',
         },
         {
           name: '',
           school: '',
           gender: 'Male',
+          email: '',
         },
         {
           name: '',
           school: '',
           gender: 'Male',
+          email: '',
         },
       ],
       rules: {
