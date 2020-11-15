@@ -11,6 +11,7 @@
       >
 
     <v-card
+      v-if = 'isLoggedIn'
       >
 
       <v-card-title
@@ -55,13 +56,6 @@
                     >
                   </v-text-field>
 
-                  <v-text-field
-                    label = 'Email'
-                    prepend-icon="mdi-email"
-                    :value = 'email'
-                    >
-                  </v-text-field>
-
                   <v-select
                     prepend-icon = "mdi-compare-vertical"
                     :value = 'type'
@@ -80,7 +74,17 @@
                   <v-text-field
                     label = 'Member Name'
                     prepend-icon = "mdi-account"
-                    :value = 'members[0].name'
+                    v-model = 'members[0].name'
+                    :rules = '[rules.rangeLength(2, 10)]'
+                    readonly
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Email'
+                    prepend-icon="mdi-email"
+                    v-model = 'members[0].email'
+                    :rules = '[rules.checkEmail]'
                     readonly
                     >
                   </v-text-field>
@@ -88,7 +92,23 @@
                   <v-text-field
                     label = 'School'
                     prepend-icon = "mdi-school"
-                    :value = 'members[0].school'
+                    v-model = 'members[0].school'
+                    :rules = '[rules.rangeLength(2, 100)]'
+                    readonly
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Phone'
+                    prepend-icon = "mdi-phone"
+                    v-model = 'members[0].phone'
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Location'
+                    prepend-icon = "mdi-google-maps"
+                    v-model = 'members[0].location'
                     >
                   </v-text-field>
 
@@ -96,7 +116,7 @@
                     :items = "['Male', 'Female']"
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
-                    :value = 'members[0].gender'
+                    v-model = 'members[0].gender'
                     readonly
                     >
                   </v-select>
@@ -110,7 +130,17 @@
                   <v-text-field
                     label = 'Member Name'
                     prepend-icon = "mdi-account"
-                    :value = 'members[1].name'
+                    v-model = 'members[1].name'
+                    :rules = '[rules.rangeLength(2, 10)]'
+                    readonly
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Email'
+                    prepend-icon="mdi-email"
+                    v-model = 'members[1].email'
+                    :rules = '[rules.checkEmail]'
                     readonly
                     >
                   </v-text-field>
@@ -118,8 +148,23 @@
                   <v-text-field
                     label = 'School'
                     prepend-icon = "mdi-school"
-                    :value = 'members[1].school'
+                    v-model = 'members[1].school'
+                    :rules = '[rules.rangeLength(2, 100)]'
                     readonly
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Phone'
+                    prepend-icon = "mdi-phone"
+                    v-model = 'members[1].phone'
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Location'
+                    prepend-icon = "mdi-google-maps"
+                    v-model = 'members[1].location'
                     >
                   </v-text-field>
 
@@ -127,7 +172,7 @@
                     :items = "['Male', 'Female']"
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
-                    :value = 'members[1].gender'
+                    v-model = 'members[1].gender'
                     readonly
                     >
                   </v-select>
@@ -141,7 +186,16 @@
                   <v-text-field
                     label = 'Member Name'
                     prepend-icon = "mdi-account"
-                    :value = 'members[2].name'
+                    v-model = 'members[2].name'
+                    :rules = '[rules.rangeLength(2, 10)]'
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Email'
+                    prepend-icon="mdi-email"
+                    v-model = 'members[2].email'
+                    :rules = '[rules.checkEmail]'
                     readonly
                     >
                   </v-text-field>
@@ -149,8 +203,23 @@
                   <v-text-field
                     label = 'School'
                     prepend-icon = "mdi-school"
-                    :value = 'members[2].school'
+                    v-model = 'members[2].school'
+                    :rules = '[rules.rangeLength(2, 100)]'
                     readonly
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Phone'
+                    prepend-icon = "mdi-phone"
+                    v-model = 'members[2].phone'
+                    >
+                  </v-text-field>
+
+                  <v-text-field
+                    label = 'Location'
+                    prepend-icon = "mdi-google-maps"
+                    v-model = 'members[2].location'
                     >
                   </v-text-field>
 
@@ -158,7 +227,7 @@
                     :items = "['Male', 'Female']"
                     label = 'Gender'
                     prepend-icon = "mdi-gender-male-female"
-                    :value = 'members[2].gender'
+                    v-model = 'members[2].gender'
                     readonly
                     >
                   </v-select>
@@ -175,26 +244,80 @@
 
       </v-card-text>
 
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text @click = 'editProfile' color = 'primary'>Update</v-btn>
+      </v-card-actions>
+
     </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Profile',
+  data() {
+    return {
+      username: '',
+      type: 'A',
+      members: [
+        {
+          name: '',
+          school: '',
+          gender: 'Male',
+          email: '',
+          phone: '',
+          location: '',
+        },
+        {
+          name: '',
+          school: '',
+          gender: 'Male',
+          email: '',
+          phone: '',
+          location: '',
+        },
+        {
+          name: '',
+          school: '',
+          gender: 'Male',
+          email: '',
+          phone: '',
+          location: '',
+        },
+      ],
+      rules: {
+        rangeLength(lowerbound, upperbound) {
+          return function(value) {
+            if (lowerbound <= value.length && value.length <= upperbound)
+              return true;
+            return `The length should be between ${lowerbound} and ${upperbound}`;
+          }
+        },
+        sameWith(thisValue) {
+          return function(value) {
+            if (value && value == thisValue)
+              return true;
+            return `Confirmed password not match`;
+          } 
+        },
+        checkEmail(value) {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || 'Invalid e-mail.';
+        },
+      }
+    }
+  },
   computed: {
-    ...mapState({
-      username: state => state.user.teamname,
-      email: state => state.user.email,
-      type: state => state.user.type.toUpperCase(),
-      members: state => state.user.members,
-    })
+    ...mapGetters(['isLoggedIn']),
   },
   created() {
     this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
+    this.username = this.$store.state.user.teamname;
+    this.type = this.$store.state.user.type.toUpperCase();
   }
 }
 </script>

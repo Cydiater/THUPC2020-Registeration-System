@@ -67,7 +67,6 @@
                         >
                       </v-text-field>
 
-
                       <v-select
                         prepend-icon = "mdi-compare-vertical"
                         v-model = 'type'
@@ -103,6 +102,20 @@
                         prepend-icon = "mdi-school"
                         v-model = 'members[0].school'
                         :rules = '[rules.rangeLength(2, 100)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Phone'
+                        prepend-icon = "mdi-phone"
+                        v-model = 'members[0].phone'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Location'
+                        prepend-icon = "mdi-google-maps"
+                        v-model = 'members[0].location'
                         >
                       </v-text-field>
 
@@ -145,6 +158,20 @@
                         >
                       </v-text-field>
 
+                      <v-text-field
+                        label = 'Phone'
+                        prepend-icon = "mdi-phone"
+                        v-model = 'members[1].phone'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Location'
+                        prepend-icon = "mdi-google-maps"
+                        v-model = 'members[1].location'
+                        >
+                      </v-text-field>
+
                       <v-select
                         :items = "['Male', 'Female']"
                         label = 'Gender'
@@ -181,6 +208,20 @@
                         prepend-icon = "mdi-school"
                         v-model = 'members[2].school'
                         :rules = '[rules.rangeLength(2, 100)]'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Phone'
+                        prepend-icon = "mdi-phone"
+                        v-model = 'members[2].phone'
+                        >
+                      </v-text-field>
+
+                      <v-text-field
+                        label = 'Location'
+                        prepend-icon = "mdi-google-maps"
+                        v-model = 'members[2].location'
                         >
                       </v-text-field>
 
@@ -244,18 +285,24 @@ export default {
           school: '',
           gender: 'Male',
           email: '',
+          phone: '',
+          location: '',
         },
         {
           name: '',
           school: '',
           gender: 'Male',
           email: '',
+          phone: '',
+          location: '',
         },
         {
           name: '',
           school: '',
           gender: 'Male',
           email: '',
+          phone: '',
+          location: '',
         },
       ],
       rules: {
