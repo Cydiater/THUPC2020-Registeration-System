@@ -77,7 +77,10 @@ def getUserinfo(teamname):
             res['members'].append({
                 'name': memb.name,
                 'school': memb.school,
-                'gender': memb.gender
+                'gender': memb.gender,
+                'email': memb.email,
+                'phone': memb.phone,
+                'location': memb.location
             })
 
     return res
