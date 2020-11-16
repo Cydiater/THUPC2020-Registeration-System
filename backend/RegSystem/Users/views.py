@@ -105,7 +105,7 @@ def modifyMemberinfo(teamname, members):
     try:
         userId = user.objects.get(teamname=teamname).id
 
-        for edge in user2member.objects.filter(userid=usr.id):
+        for edge in user2member.objects.filter(userid=userId):
             memb = member.objects.get(id=edge.memberid)
             memb.delete()
             edge.delete()
@@ -117,7 +117,7 @@ def modifyMemberinfo(teamname, members):
             user2member.objects.create(userid=userId, memberid=memberId)
 
         res['status'] = 'success'
-        res['message'] = 'register succeeded'
+        res['message'] = 'modify successed'
     except:
         res['status'] = 'failed'
         res['message'] = 'modify error'
