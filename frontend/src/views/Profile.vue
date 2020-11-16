@@ -254,6 +254,7 @@
       </v-card-actions>
 
     </v-card>
+
     </v-col>
   </v-row>
 </template>
@@ -327,7 +328,8 @@ export default {
     ...mapActions(['editProfile']),
   },
   created() {
-    this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
+    if (this.$store.getters.isLoggedIn)
+      this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
   },
   watch: {
     user() {

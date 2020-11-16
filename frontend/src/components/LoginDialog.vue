@@ -22,8 +22,8 @@
                   >
                   <v-text-field
                     v-model = 'username'
-                    label = "Username"
-                    prepend-icon = "mdi-account"
+                    label = "Team Name"
+                    prepend-icon = "mdi-account-group"
                     :rules = '[rules.rangeLength(3, 20)]'
                     ></v-text-field>
                 </v-col>

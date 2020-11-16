@@ -102,11 +102,6 @@ export default {
           route: '/',
           icon: 'mdi-view-dashboard',
         },
-        {
-          text: 'Profile',
-          route: '/profile',
-          icon: 'mdi-information',
-        }
       ]
     }
   },
@@ -126,6 +121,17 @@ export default {
       if (this.user) 
         return this.user.teamname;
       return "Not logged in";
+    }
+  },
+  watch: {
+    user() {
+      if (this.$store.state.user) {
+        this.links.push({
+          text: 'Profile',
+          route: '/profile',
+          icon: 'mdi-information',
+        });
+      }
     }
   }
 }
