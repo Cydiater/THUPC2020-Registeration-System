@@ -66,6 +66,7 @@ def register(request):
 
 
 @user_auth
+@csrf_exempt
 def userinfo(request):
     if request.method == 'GET':
         teamname = request.GET.get('name')
