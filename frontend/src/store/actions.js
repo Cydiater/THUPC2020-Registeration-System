@@ -1,4 +1,5 @@
 import { userService } from '@/service';
+import store from '@/store';
 
 export default {
   loginRequest({ commit, dispatch }, { username, password }) {
@@ -103,7 +104,7 @@ export default {
     .then(() => {
       commit('clearStatus', 'waitForEditingProfile');
       commit('notify', { type: 'success', message: 'Success' });
-      dispatch('fetchUserInfo');
+      dispatch('fetchUserInfo', store.state.username);
     }, error => {
       commit('notify', { type: 'error', message: error });
     })

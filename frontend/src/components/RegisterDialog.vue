@@ -39,6 +39,7 @@
 
                     <v-tab-item
                       class = 'mt-5'
+                      eager
                       >
 
                       <v-text-field
@@ -85,6 +86,8 @@
 
                     <v-tab-item
                       class = 'mt-5'
+                      v-for = '(member, index) in members'
+                      :key = 'index'
                       >
 
                       <v-text-field
@@ -98,7 +101,7 @@
                       <v-text-field
                         label = 'Email'
                         prepend-icon="mdi-email"
-                        v-model = 'members[0].email'
+                        v-model = 'member.email'
                         :rules = '[rules.checkEmail]'
                         >
                       </v-text-field>
@@ -106,7 +109,7 @@
                       <v-text-field
                         label = 'School'
                         prepend-icon = "mdi-school"
-                        v-model = 'members[0].school'
+                        v-model = 'member.school'
                         :rules = '[rules.rangeLength(2, 100)]'
                         >
                       </v-text-field>
@@ -114,14 +117,14 @@
                       <v-text-field
                         label = 'Phone'
                         prepend-icon = "mdi-phone"
-                        v-model = 'members[0].phone'
+                        v-model = 'member.phone'
                         >
                       </v-text-field>
 
                       <v-text-field
                         label = 'Location'
                         prepend-icon = "mdi-google-maps"
-                        v-model = 'members[0].location'
+                        v-model = 'member.location'
                         >
                       </v-text-field>
 
@@ -129,113 +132,7 @@
                         :items = "['Male', 'Female']"
                         label = 'Gender'
                         prepend-icon = "mdi-gender-male-female"
-                        v-model = 'members[0].gender'
-                        required
-                        >
-                      </v-select>
-
-                    </v-tab-item>
-
-                    <v-tab-item
-                      class = 'mt-5'
-                      >
-
-                      <v-text-field
-                        label = 'Member Name'
-                        prepend-icon = "mdi-account"
-                        v-model = 'members[1].name'
-                        :rules = '[rules.rangeLength(2, 10)]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Email'
-                        prepend-icon="mdi-email"
-                        v-model = 'members[1].email'
-                        :rules = '[rules.checkEmail]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'School'
-                        prepend-icon = "mdi-school"
-                        v-model = 'members[1].school'
-                        :rules = '[rules.rangeLength(2, 100)]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Phone'
-                        prepend-icon = "mdi-phone"
-                        v-model = 'members[1].phone'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Location'
-                        prepend-icon = "mdi-google-maps"
-                        v-model = 'members[1].location'
-                        >
-                      </v-text-field>
-
-                      <v-select
-                        :items = "['Male', 'Female']"
-                        label = 'Gender'
-                        prepend-icon = "mdi-gender-male-female"
-                        v-model = 'members[1].gender'
-                        required
-                        >
-                      </v-select>
-
-                    </v-tab-item>
-
-                    <v-tab-item
-                      class = 'mt-5'
-                      >
-
-                      <v-text-field
-                        label = 'Member Name'
-                        prepend-icon = "mdi-account"
-                        v-model = 'members[2].name'
-                        :rules = '[rules.rangeLength(2, 10)]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Email'
-                        prepend-icon="mdi-email"
-                        v-model = 'members[2].email'
-                        :rules = '[rules.checkEmail]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'School'
-                        prepend-icon = "mdi-school"
-                        v-model = 'members[2].school'
-                        :rules = '[rules.rangeLength(2, 100)]'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Phone'
-                        prepend-icon = "mdi-phone"
-                        v-model = 'members[2].phone'
-                        >
-                      </v-text-field>
-
-                      <v-text-field
-                        label = 'Location'
-                        prepend-icon = "mdi-google-maps"
-                        v-model = 'members[2].location'
-                        >
-                      </v-text-field>
-
-                      <v-select
-                        :items = "['Male', 'Female']"
-                        label = 'Gender'
-                        prepend-icon = "mdi-gender-male-female"
-                        v-model = 'members[2].gender'
+                        v-model = 'member.gender'
                         required
                         >
                       </v-select>

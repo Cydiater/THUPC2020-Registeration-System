@@ -125,7 +125,7 @@ export default {
   },
   watch: {
     user() {
-      if (this.$store.state.user) {
+      if (this.$store.state.user && !this.links.find( link => link.text == 'Profile' )) {
         this.links.push({
           text: 'Profile',
           route: '/profile',
