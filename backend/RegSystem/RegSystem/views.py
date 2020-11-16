@@ -65,8 +65,8 @@ def register(request):
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
 
-@user_auth
 @csrf_exempt
+@user_auth
 def userinfo(request):
     if request.method == 'GET':
         teamname = request.GET.get('name')
