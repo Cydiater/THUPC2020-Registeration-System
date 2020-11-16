@@ -262,7 +262,7 @@
           text
           :disabled = '!isFormValid'
           :loading = 'waitForRegister'
-          @click = 'registerRequest({ username, password, email, members, type })'
+          @click = 'registerRequest({ username, password, members, type })'
           >
           Sign up
         </v-btn>

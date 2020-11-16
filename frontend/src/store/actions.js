@@ -23,9 +23,9 @@ export default {
     commit('clearStatus', 'loggingIn');
     commit('notify', { type: 'error', message: error });
   },
-  registerRequest({ commit, dispatch }, { username, password, email, type, members }) {
+  registerRequest({ commit, dispatch }, { username, password, type, members }) {
     commit('setStatus', 'waitForRegister');
-    userService.register(username, password, email, type.toLowerCase(), members)
+    userService.register(username, password, type.toLowerCase(), members)
     .then(res => {
       if (res.status == 'failed') {
         dispatch('registerFailed', res.message);

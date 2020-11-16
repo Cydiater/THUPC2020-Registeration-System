@@ -45,7 +45,7 @@ function logout() {
   localStorage.removeItem('username');
 }
 
-function register(username, password, email, type, members) {
+function register(username, password, type, members) {
   const requestOptions = {
     method: API.REGISTER.method,
     headers: {
@@ -54,7 +54,6 @@ function register(username, password, email, type, members) {
     body: JSON.stringify({
       teamname: username,
       password,
-      email,
       type,
       members,
     })
