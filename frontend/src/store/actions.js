@@ -108,6 +108,7 @@ export default {
       if (res.status == 'failed')
         commit('notify', { type: 'error', message: res.message });
     }, error => {
+      commit('clearStatus', 'waitForEditingProfile');
       commit('notify', { type: 'error', message: error });
     })
   }

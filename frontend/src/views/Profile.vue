@@ -146,7 +146,14 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text :disabled = '!isFormValid' @click = 'editProfile( members )' color = 'primary' :loading = 'waitForEditingProfile'>Update</v-btn>
+        <v-btn 
+          text 
+          :disabled = '!isFormValid' 
+          @click = 'editProfile( members )' 
+          color = 'primary' 
+          :loading = 'waitForEditingProfile'>
+          Update
+        </v-btn>
       </v-card-actions>
 
     </v-card>
