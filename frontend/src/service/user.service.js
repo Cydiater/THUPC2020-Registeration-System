@@ -101,11 +101,11 @@ function getAnnouncements() {
 
 function editProfile(members) {
   const requestOptions = {
-    method: API.EDITPROFILE.url,
+    method: API.EDITPROFILE.method,
     headers: authHeader(),
     body: JSON.stringify({ members }),
   };
-  return fetch(API.GETANNOUNCEMENTS.url, requestOptions)
+  return fetch(API.EDITPROFILE.url, requestOptions)
   .then(handleResponse);
 }
 
