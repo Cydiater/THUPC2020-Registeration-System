@@ -68,7 +68,6 @@ def getUserinfo(teamname):
         res['message'] = '用户名不存在'
     else:
         res['teamname'] = usr.teamname
-        res['email'] = usr.email
         res['type'] = usr.type
         res['isAdmin'] = usr.isAdmin
         res['members'] = []
