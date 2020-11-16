@@ -121,6 +121,7 @@ def modifyMemberinfo(teamname, members):
     except:
         res['status'] = 'failed'
         res['message'] = 'modify error'
+    return res
 
 
 def getPostboard():
