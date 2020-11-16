@@ -93,7 +93,7 @@
                       <v-text-field
                         label = 'Member Name'
                         prepend-icon = "mdi-account"
-                        v-model = 'members.name'
+                        v-model = 'member.name'
                         :rules = '[rules.rangeLength(2, 10)]'
                         >
                       </v-text-field>
