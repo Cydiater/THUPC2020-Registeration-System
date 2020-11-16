@@ -20,7 +20,7 @@ def signIn(username, password):
     return res
 
 
-def registerIn(teamname, password, email, type, members):
+def registerIn(teamname, password, type, members):
     res = {}
     try:
         usr = user.objects.get(teamname=teamname)
@@ -96,8 +96,9 @@ def checkExistence(teamname):
         res['message'] = '用户名已存在'
     return res
 
+
 def modifyMemberinfo(teamname, members):
-    res={}
+    res = {}
 
     try:
         userId = user.objects.get(teamname=teamname).id
@@ -118,6 +119,7 @@ def modifyMemberinfo(teamname, members):
     except:
         res['status'] = 'failed'
         res['message'] = 'modify error'
+
 
 def getPostboard():
     return_list = []

@@ -15,7 +15,7 @@ class member(models.Model):
     name = models.CharField(max_length=10)
     gender = models.CharField(max_length=10)
     email = models.CharField(max_length=30, default='')
-    localtion = models.CharField(max_length=30, default='')
+    location = models.CharField(max_length=30, default='')
     phone = models.CharField(max_length=30, default='')
 
 
