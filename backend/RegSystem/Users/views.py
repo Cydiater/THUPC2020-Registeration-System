@@ -73,15 +73,22 @@ def getUserinfo(teamname):
         res['members'] = []
 
         for edge in user2member.objects.filter(userid=usr.id):
-            memb = member.objects.get(id=edge.memberid)
-            res['members'].append({
-                'name': memb.name,
-                'school': memb.school,
-                'gender': memb.gender,
-                'email': memb.email,
-                'phone': memb.phone,
-                'location': memb.location
-            })
+            try:
+                memb = member.objects.get(id=edge.memberid)
+            except:
+                pass
+            else:
+                res['members'].append({
+                    'name': memb.name,
+                    'school': memb.school,
+                    'gender': memb.gender,
+                    'email': memb.email,
+                    'phone': memb.phone,
+                    'location': memb.location
+                })
+    
+    while len(res['members'])<3 :
+        res['members'].append({})
 
     return res
 
@@ -102,15 +109,20 @@ def checkExistence(teamname):
 def modifyMemberinfo(teamname, members):
     res = {}
 
-    try:
+    #try:
+    if True:
         userId = user.objects.get(teamname=teamname).id
 
         for edge in user2member.objects.filter(userid=userId):
-            memb = member.objects.get(id=edge.memberid)
-            memb.delete()
-            edge.delete()
-            memb.save()
-            edge.save()
+            try:
+                memb = member.objects.get(id=edge.memberid)
+            except:
+                res['debug'] = 'aru'
+            else:
+                memb.delete()
+                edge.delete()
+                memb.save()
+                edge.save()
 
         for memb in members:
             memberId = member.objects.create(**memb).id
@@ -118,9 +130,9 @@ def modifyMemberinfo(teamname, members):
 
         res['status'] = 'success'
         res['message'] = 'modify successed'
-    except:
-        res['status'] = 'failed'
-        res['message'] = 'modify error'
+    #except:
+        #res['status'] = 'failed'
+        #res['message'] = 'modify error'
     return res
 
 
