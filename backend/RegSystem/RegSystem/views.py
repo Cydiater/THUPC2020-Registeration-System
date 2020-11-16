@@ -9,7 +9,7 @@ import Users.views
 
 def user_auth(fn):
     def wrapped_func(request, *args, **kwargs):
-        if verify(request.META.get("HTTP_AUTHORIZATION")) == False:
+        if verify(request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
             return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
 
@@ -18,7 +18,8 @@ def user_auth(fn):
 
 def admin_auth(fn):
     def wrapped_func(request, *args, **kwargs):
-        if verify_admin(request.META.get("HTTP_AUTHORIZATION")) == False:
+        if verify_admin(
+                request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
             return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
 
@@ -34,11 +35,14 @@ def admin_post_auth(fn):
 
     return wrapped_func
 
+
 def get_username(request):
     try:
-        return get_username_jwt(request.META.get("HTTP_AUTHORIZATION").split()[1])
+        return get_username_jwt(
+            request.META.get("HTTP_AUTHORIZATION").split()[1])
     except:
         return 'unkown error'
+
 
 @user_auth
 def hello(request):
@@ -60,12 +64,13 @@ def register(request):
     ret = Users.views.registerIn(**registerIn_info)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
+
 @user_auth
 def userinfo(request):
     if request.method == 'GET':
         teamname = request.GET.get('name')
         if teamname == None:
-            return HttpResponse(status = 404)
+            return HttpResponse(status=404)
         ret = Users.views.getUserinfo(teamname)
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
@@ -74,9 +79,10 @@ def userinfo(request):
         data = request.body.decode('utf-8')
         data = json.loads(data)
         if 'members' not in data:
-            return HttpResponse(status = 400)
+            return HttpResponse(status=400)
         ret = Users.views.modifyMemberinfo(teamname, data['members'])
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
 
 def checkExistence(request):
     teamname = request.GET.get('teamname')
