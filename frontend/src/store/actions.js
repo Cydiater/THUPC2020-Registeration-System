@@ -101,10 +101,12 @@ export default {
   editProfile({ commit, dispatch }, members) {
     commit('setStatus', 'waitForEditingProfile');
     userService.editProfile(members)
-    .then(() => {
+    .then((res) => {
       commit('clearStatus', 'waitForEditingProfile');
       commit('notify', { type: 'success', message: 'Success' });
       dispatch('fetchUserInfo', store.state.username);
+      if (res.status == 'failed')
+        commit('notify', { type: 'error', message: res.message });
     }, error => {
       commit('notify', { type: 'error', message: error });
     })
