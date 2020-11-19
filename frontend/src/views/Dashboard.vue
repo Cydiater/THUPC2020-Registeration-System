@@ -5,7 +5,8 @@
     tile
     >
 
-    <v-list>
+    <v-list
+      >
 
       <v-list-item
         class = 'my-2'

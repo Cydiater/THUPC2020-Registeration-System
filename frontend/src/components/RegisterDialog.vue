@@ -88,6 +88,7 @@
                       class = 'mt-5'
                       v-for = '(member, index) in members'
                       :key = 'index'
+                      eager
                       >
 
                       <v-text-field

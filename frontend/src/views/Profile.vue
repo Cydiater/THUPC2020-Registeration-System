@@ -48,6 +48,7 @@
 
                 <v-tab-item
                   class = 'mt-5'
+                  eager
                   >
 
                   <v-text-field

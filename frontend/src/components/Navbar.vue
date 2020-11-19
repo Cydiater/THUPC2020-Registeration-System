@@ -10,7 +10,21 @@
       >
 
       <v-app-bar-nav-icon @click = "showSidebar = !showSidebar" class = 'blue--text text--lighten-5'></v-app-bar-nav-icon>
-      <v-toolbar-title>THUPC2020 Registeration System</v-toolbar-title>
+      <v-toolbar-title
+        class = 'mr-5'
+        >
+        THUPC2020 Registeration System
+      </v-toolbar-title>
+
+      <v-avatar
+        color = 'white'
+        size = 36
+        >
+        <v-img src = '@/assets/logo.png'></v-img>
+      </v-avatar>
+
+      <span class = 'font-weight-bold pl-2'>THUSAAC</span>
+
       <v-spacer></v-spacer>
 
       <v-btn 
@@ -32,7 +46,6 @@
 
       </v-btn>
 
-      
       <v-btn
         class = 'blue darken-3 blue--text text--lighten-5'
         text
@@ -41,6 +54,7 @@
         >
         Logout
       </v-btn>
+
 
     </v-app-bar>
 
@@ -54,7 +68,7 @@
 
       <v-card flat tile>
         <v-img 
-          src = '@/assets/sideimg.jpg'
+          src = '@/assets/banner.png'
           class = "white--text align-end"
           gradient = "to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
           >
