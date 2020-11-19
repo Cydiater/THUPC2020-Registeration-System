@@ -82,6 +82,11 @@
                         C 类：其他队伍
                       </p>
 
+                      <v-checkbox
+                        v-model = 'agree'
+                        label = 'Agree to terms of enrollment'
+                        ></v-checkbox>
+
                     </v-tab-item>
 
                     <v-tab-item
@@ -158,7 +163,7 @@
         <v-btn
           color = 'primary'
           text
-          :disabled = '!isFormValid'
+          :disabled = '!isFormValid || !agree'
           :loading = 'waitForRegister'
           @click = 'registerRequest({ username, password, members, type })'
           >
@@ -179,6 +184,7 @@ export default {
   data() {
     return {
       isFormValid: false,
+      agree: true,
       username: '',
       password: '',
       confirm_password: '',

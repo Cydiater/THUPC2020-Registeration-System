@@ -5,6 +5,11 @@
     tile
     >
 
+    <vue-headful
+      title = 'THUPC2020 Registeration System'
+      >
+    </vue-headful>
+
     <v-list
       >
 
