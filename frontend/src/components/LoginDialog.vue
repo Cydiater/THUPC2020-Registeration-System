@@ -24,7 +24,7 @@
                     v-model = 'username'
                     label = "Team Name"
                     prepend-icon = "mdi-account-group"
-                    :rules = '[rules.rangeLength(3, 20)]'
+                    :rules = '[rules.rangeLength(3, 20), rules.preventNullCharacter]'
                     ></v-text-field>
                 </v-col>
 
@@ -80,6 +80,12 @@ export default {
               return true;
             return `The length should be between ${lowerbound} and ${upperbound}`;
           }
+        },
+        preventNullCharacter(value) {
+          const pattern = /[\n\r\t\0\s]/;
+          if (pattern.test(value))
+            return 'Containing null characters';
+          return true;
         }
       }
     }

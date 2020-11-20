@@ -1,6 +1,7 @@
 import API from './api';
 import router from '@/router';
 import { authHeader } from '@/utils';
+import md5 from 'js-md5';
 
 function handleResponse(response) {
   return response.json()
@@ -25,7 +26,7 @@ function login(username, password) {
     },
     body: JSON.stringify({
       username,
-      password
+      password: md5(password),
     })
   };
 
@@ -53,7 +54,7 @@ function register(username, password, type, members) {
     },
     body: JSON.stringify({
       teamname: username,
-      password,
+      password: md5(password),
       type,
       members,
     })

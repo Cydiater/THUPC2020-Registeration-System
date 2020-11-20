@@ -46,7 +46,7 @@
                         label = 'Team Name'
                         prepend-icon = "mdi-account-group"
                         v-model = 'username'
-                        :rules = '[rules.rangeLength(3, 20)]'
+                        :rules = '[rules.rangeLength(3, 20), rules.preventNullCharacter]'
                         >
                       </v-text-field>
 
@@ -100,7 +100,7 @@
                         label = 'Member Name'
                         prepend-icon = "mdi-account"
                         v-model = 'member.name'
-                        :rules = '[rules.rangeLength(2, 10)]'
+                        :rules = '[rules.rangeLength(2, 10), rules.preventNullCharacter]'
                         >
                       </v-text-field>
 
@@ -234,6 +234,12 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail.';
         },
+        preventNullCharacter(value) {
+          const pattern = /[\n\r\t\0\s]/;
+          if (pattern.test(value))
+            return 'Containing null characters';
+          return true;
+        }
       }
     }
   },
