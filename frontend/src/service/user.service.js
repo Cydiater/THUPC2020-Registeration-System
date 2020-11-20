@@ -110,6 +110,42 @@ function editProfile(members) {
   .then(handleResponse);
 }
 
+function getEmailStatus(email) {
+  const requestOptions = {
+    method: API.GETEMAILSTATUS.method,
+    headers: authHeader(),
+  };
+  return fetch(API.GETEMAILSTATUS.url + `?email=${email}`, requestOptions)
+  .then(handleResponse);
+}
+
+function sendVerificationEmail(email) {
+  const requestOptions = {
+    method: API.CHECKEMAIL.method,
+    headers: authHeader(),
+    body: JSON.stringify({
+      action: 'send',
+      email,
+    }),
+  };
+  return fetch(API.CHECKEMAIL.url, requestOptions)
+  .then(handleResponse);
+}
+
+function checkEmailCode(email, code) {
+  const requestOptions = {
+    method: API.CHECKEMAIL.method,
+    headers: authHeader(),
+    body: JSON.stringify({
+      action: 'verify',
+      email,
+      code,
+    }),
+  };
+  return fetch(API.CHECKEMAIL.url, requestOptions)
+  .then(handleResponse);
+}
+
 export default {
   login,
   logout,
@@ -118,4 +154,7 @@ export default {
   postAnnouncement,
   getAnnouncements,
   editProfile,
+  getEmailStatus,
+  sendVerificationEmail,
+  checkEmailCode,
 }

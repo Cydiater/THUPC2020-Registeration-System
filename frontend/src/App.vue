@@ -10,7 +10,7 @@
         v-model = 'notify'
         :color = 'notification.type'
         >
-        {{notification.message}}
+        <p class = 'text-center pa-0 ma-0'>{{notification.message}}</p>
       </v-snackbar>
 
     </v-main>

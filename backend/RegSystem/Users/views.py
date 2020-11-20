@@ -30,8 +30,6 @@ def registerIn(teamname, password, type, members):
         try:
             if len(teamname) < 3 or len(teamname) > 20:
                 raise Exception('用户名长度应大于等于3且小于等于20')
-            if len(password) < 6 or len(password) > 16:
-                raise Exception('密码长度应大于等于6且小于等于16')
             if type not in {'a', 'b', 'c'}:
                 raise Exception('unexpected error : usertype')
             for memb in members:

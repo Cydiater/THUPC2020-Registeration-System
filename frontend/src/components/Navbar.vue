@@ -16,15 +16,6 @@
         THUPC2020 Registeration System
       </v-toolbar-title>
 
-      <v-avatar
-        color = 'white'
-        size = 36
-        >
-        <v-img src = '@/assets/logo.png'></v-img>
-      </v-avatar>
-
-      <span class = 'font-weight-bold pl-2'>THUSAAC</span>
-
       <v-spacer></v-spacer>
 
       <v-btn 

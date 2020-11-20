@@ -22,5 +22,13 @@ export default {
   EDITPROFILE: {
     url: '/api/userinfo',
     method: 'post',
-  }
+  },
+  GETEMAILSTATUS: {
+    url: '/api/email',
+    method: 'get',
+  },
+  CHECKEMAIL: {
+    url: '/api/email',
+    method: 'post',
+  },
 }

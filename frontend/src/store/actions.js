@@ -111,5 +111,13 @@ export default {
       commit('clearStatus', 'waitForEditingProfile');
       commit('notify', { type: 'error', message: error });
     })
+  },
+  async updateMemberEmailStatus({ commit }, member) {
+    userService.getEmailStatus(member.email)
+    .then(res => {
+      member.emailStatus = res.status;
+    }, error => {
+      commit('notify', { type: 'error', message: error });
+    });
   }
 };

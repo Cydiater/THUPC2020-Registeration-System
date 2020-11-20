@@ -88,53 +88,116 @@
                   :key = 'index'
                   >
 
-                  <v-text-field
-                    label = 'Member Name'
-                    prepend-icon = "mdi-account"
-                    v-model = 'member.name'
-                    :rules = '[rules.rangeLength(2, 10)]'
-                    readonly
+                  <v-row
+                    align="center"
+                    justify="center"
                     >
-                  </v-text-field>
 
-                  <v-text-field
-                    label = 'Email'
-                    prepend-icon="mdi-email"
-                    v-model = 'member.email'
-                    :rules = '[rules.checkEmail]'
-                    >
-                  </v-text-field>
+                    <v-col
+                      cols = 12
+                      class = 'py-0'
+                      >
+                      <v-text-field
+                        label = 'Member Name'
+                        prepend-icon = "mdi-account"
+                        v-model = 'member.name'
+                        :rules = '[rules.rangeLength(2, 10)]'
+                        readonly
+                        >
+                      </v-text-field>
+                    </v-col>
 
-                  <v-text-field
-                    label = 'School'
-                    prepend-icon = "mdi-school"
-                    v-model = 'member.school'
-                    :rules = '[rules.rangeLength(2, 100)]'
-                    readonly
-                    >
-                  </v-text-field>
+                    <v-col
+                      cols = 11
+                      class = 'py-0'
+                      >
+                      <v-text-field
+                        label = 'Email'
+                        prepend-icon="mdi-email"
+                        v-model = 'member.email'
+                        :rules = '[rules.checkEmail]'
+                        >
+                      </v-text-field>
+                    </v-col>
 
-                  <v-text-field
-                    label = 'Phone'
-                    prepend-icon = "mdi-phone"
-                    v-model = 'member.phone'
-                    >
-                  </v-text-field>
+                    <v-col
+                      cols = 1
+                      class = 'py-0'
+                      >
 
-                  <v-text-field
-                    label = 'Location'
-                    prepend-icon = "mdi-google-maps"
-                    v-model = 'member.location'
-                    >
-                  </v-text-field>
+                      <v-btn
+                        v-if = 'member.emailStatus == "verified"'
+                        icon
+                        readonly 
+                        color = 'primary'
+                        :loading = 'waitForGettingEmailStatus'
+                        >
+                        <v-icon>mdi-check</v-icon>
+                      </v-btn>
 
-                  <v-select
-                    :items = "['Male', 'Female']"
-                    label = 'Gender'
-                    prepend-icon = "mdi-gender-male-female"
-                    v-model = 'member.gender'
-                    >
-                  </v-select>
+                      <v-btn
+                        v-if = 'member.emailStatus == "null"'
+                        text
+                        color = 'primary'
+                        :loading = 'waitForGettingEmailStatus'
+                        >
+                        VERIFY
+                      </v-btn>
+
+                    </v-col>
+
+                    <v-col
+                      cols = 12
+                      class = 'py-0'
+                      >
+                      <v-text-field
+                        label = 'School'
+                        prepend-icon = "mdi-school"
+                        v-model = 'member.school'
+                        :rules = '[rules.rangeLength(2, 100)]'
+                        readonly
+                        >
+                      </v-text-field>
+                    </v-col>
+
+                    <v-col
+                      cols = 12
+                      class = 'py-0'
+                      >
+                      <v-text-field
+                        label = 'Phone'
+                        prepend-icon = "mdi-phone"
+                        v-model = 'member.phone'
+                        >
+                      </v-text-field>
+                    </v-col>
+
+                    <v-col
+                      cols = 12
+                      class = 'py-0'
+                      >
+                      <v-text-field
+                        label = 'Location'
+                        prepend-icon = "mdi-google-maps"
+                        v-model = 'member.location'
+                        >
+                      </v-text-field>
+                    </v-col>
+
+                    <v-col
+                      cols = 12
+                      class = 'py-0'
+                      >
+                      <v-select
+                        :items = "['Male', 'Female']"
+                        label = 'Gender'
+                        prepend-icon = "mdi-gender-male-female"
+                        v-model = 'member.gender'
+                        >
+                      </v-select>
+                    </v-col>
+
+                  </v-row>
 
                 </v-tab-item>
 
@@ -176,6 +239,7 @@ export default {
   data() {
     return {
       isFormValid: false,
+      waitForGettingEmailStatus: false,
       username: '',
       type: 'A',
       members: [
@@ -186,6 +250,7 @@ export default {
           email: '',
           phone: '',
           location: '',
+          emailStatus: 'null',
         },
         {
           name: '',
@@ -194,6 +259,7 @@ export default {
           email: '',
           phone: '',
           location: '',
+          emailStatus: 'null',
         },
         {
           name: '',
@@ -202,6 +268,7 @@ export default {
           email: '',
           phone: '',
           location: '',
+          emailStatus: 'null',
         },
       ],
       rules: {
@@ -241,12 +308,16 @@ export default {
       this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
   },
   watch: {
-    user() {
+    async user() {
       if (this.$store.state.user) {
         this.username = this.$store.state.user.teamname;
         if (this.$store.state.user.type)
           this.type = this.$store.state.user.type.toUpperCase();
         this.members = this.$store.state.user.members;
+        this.waitForGettingEmailStatus = true;
+        for (let member of this.members) 
+            await this.$store.dispatch('updateMemberEmailStatus', member)
+        this.waitForGettingEmailStatus = false;
       }
     }
   }

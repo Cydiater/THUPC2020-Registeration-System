@@ -10,70 +10,147 @@
       >
     </vue-headful>
 
-    <v-list
+    <v-card
+      width="800px"
+      class = 'mx-auto my-2'
       >
 
-      <v-list-item
-        class = 'my-2'
-        v-for = 'announcement of announcements'
-        :key = 'announcement.post_id'
-        >
+      <v-card-title>公告</v-card-title>
+      <v-card-text>
 
-        <v-card
-          class = "mx-auto"
-          width = '800px'
+        <v-list
           >
 
-          <v-card-title
-            class = 'primary--text font-weight-bold'
+          <v-list-item
+            class = 'my-2'
+            v-for = 'announcement of announcements'
+            :key = 'announcement.post_id'
             >
-            {{announcement.title}}
-          </v-card-title>
 
-          <v-card-subtitle 
-            >
-            {{announcement.author}} at {{ announcement.timestamp | formatTime }}
-          </v-card-subtitle>
-
-          <v-card-actions>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon v-if = 'isAdmin()' @click = 'openEADialog(announcement)'>
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-
-            <v-btn
-              icon
-              @click="toggleAnnouncement(announcement)"
+            <v-card
+              class = "mx-auto"
+              width = '800px'
               >
-              <v-icon>{{ announcement.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-            </v-btn>
 
-          </v-card-actions>
-
-          <v-expand-transition>
-
-            <div v-show="announcement.show">
-              <v-divider></v-divider>
-
-              <v-card-text>
-
-                <vue-markdown
-                  mode = 'viewer'
-                  :source = 'announcement.content'
+              <v-card-title
+                class = 'primary--text font-weight-bold'
                 >
-                </vue-markdown>
+                {{announcement.title}}
+              </v-card-title>
 
-              </v-card-text>
+              <v-card-subtitle 
+                >
+                {{announcement.author}} at {{ announcement.timestamp | formatTime }}
+              </v-card-subtitle>
 
-            </div>
+              <v-card-actions>
 
-          </v-expand-transition>
-        </v-card>
-      </v-list-item>
+                <v-spacer></v-spacer>
 
-    </v-list>
+                <v-btn icon v-if = 'isAdmin()' @click = 'openEADialog(announcement)'>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn
+                  icon
+                  @click="toggleAnnouncement(announcement)"
+                  >
+                  <v-icon>{{ announcement.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                </v-btn>
+
+              </v-card-actions>
+
+              <v-expand-transition>
+
+                <div v-show="announcement.show">
+                  <v-divider></v-divider>
+
+                  <v-card-text>
+
+                    <vue-markdown
+                      mode = 'viewer'
+                      :source = 'announcement.content'
+                      >
+                    </vue-markdown>
+
+                  </v-card-text>
+
+                </div>
+
+              </v-expand-transition>
+
+            </v-card>
+          </v-list-item>
+
+        </v-list>
+      </v-card-text>
+
+    </v-card>
+
+    <v-card
+      width="800px"
+      class = 'mx-auto my-2'
+      >
+      <v-card-title class = 'text-center'>主办方</v-card-title>
+      <v-card-text>
+        <v-row
+          justify="center"
+          align="center"
+          >
+          <v-col>
+            <v-img 
+              max-width = '100px' 
+              src = '@/assets/thu.svg'
+              class = 'mx-auto'
+              ></v-img>
+          </v-col>
+          <v-col>
+            <v-img 
+              max-width = '100px' 
+              src = '@/assets/thucs.svg'
+              class = 'mx-auto'
+              ></v-img>
+          </v-col>
+          <v-col>
+            <v-img 
+              max-width = '100px' 
+              src = '@/assets/thusaac.png'
+              class = 'mx-auto'
+              ></v-img>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-card
+      width="800px"
+      class = 'mx-auto my-2'
+      >
+      <v-card-title class = 'text-center'>赞助商</v-card-title>
+      <v-card-text>
+        <v-row
+          justify="center"
+          align="center"
+          >
+          <v-col>
+            <v-img 
+              max-width = '200px' 
+              src = '@/assets/kuaishou.png'
+              class = 'mx-auto'
+              ></v-img>
+          </v-col>
+          <v-col>
+            <v-img 
+              max-width = '200px' 
+              src = '@/assets/xuetang.png'
+              class = 'mx-auto'
+              ></v-img>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+
 
     <v-btn
       fab
