@@ -108,7 +108,7 @@
                     </v-col>
 
                     <v-col
-                      cols = 11
+                      cols = 12
                       class = 'py-0'
                       >
                       <v-text-field
@@ -123,6 +123,7 @@
                     <v-col
                       cols = 1
                       class = 'py-0'
+                      v-if = 'false'
                       >
 
                       <v-btn
@@ -315,8 +316,8 @@ export default {
           this.type = this.$store.state.user.type.toUpperCase();
         this.members = this.$store.state.user.members;
         this.waitForGettingEmailStatus = true;
-        for (let member of this.members) 
-            await this.$store.dispatch('updateMemberEmailStatus', member)
+        //for (let member of this.members) 
+            //await this.$store.dispatch('updateMemberEmailStatus', member)
         this.waitForGettingEmailStatus = false;
       }
     }
