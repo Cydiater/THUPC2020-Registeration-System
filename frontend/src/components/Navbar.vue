@@ -4,44 +4,92 @@
     <!-- Top Bar -->
 
     <v-app-bar
-      class = 'blue darken-3 blue--text text--lighten-5'
+      class = 'primary'
       dense
       app
       >
 
       <v-app-bar-nav-icon @click = "showSidebar = !showSidebar" class = 'blue--text text--lighten-5'></v-app-bar-nav-icon>
       <v-toolbar-title
-        class = 'mr-5'
+        class = 'mr-5 white--text'
         >
-        THUPC2020 Registeration System
+        <v-row
+          align="center"
+          justify="start"
+          >
+
+          <v-col
+            cols = 4
+            >
+              THUPC2020 Registeration System
+          </v-col>
+
+          <v-col
+            cols = 1
+            >
+            <v-img 
+              height = "40px"
+              src = '@/assets/thusaac.png'
+              contain
+              class = 'ma-0'
+              ></v-img>
+          </v-col>
+
+          <v-col
+            cols = 1
+            >
+            <a href = 'https://www.kuaishou.com/'>
+              <v-img 
+                height = "40px"
+                src = '@/assets/kuaishou.png'
+                contain
+                class = 'ma-0'
+                ></v-img>
+            </a>
+          </v-col>
+
+          <v-col
+            cols = 1
+            >
+            <a href = 'https://www.xuetangx.com'>
+              <v-img 
+                height = "40px"
+                src = '@/assets/xuetang.png'
+                contain
+                class = 'ma-0'
+                ></v-img>
+            </a>
+          </v-col>
+
+        </v-row>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn 
-        class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'openRegisterDialog'
         v-if = '!isLoggedIn()'
+        class = 'white--text'
         >
         <span>Sign up</span>
       </v-btn>
 
       <v-btn 
-        class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'openLoginDialog'
         v-if = '!isLoggedIn()'
+        class = 'white--text'
         >
         <span class = 'font-weight-bold'>Login</span>
 
       </v-btn>
 
       <v-btn
-        class = 'blue darken-3 blue--text text--lighten-5'
         text
         @click = 'logout'
         v-if = 'isLoggedIn()'
+        class = 'white--text'
         >
         Logout
       </v-btn>
