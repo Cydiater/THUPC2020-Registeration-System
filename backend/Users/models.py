@@ -22,10 +22,3 @@ class member(models.Model):
 class user2member(models.Model):
     userid = models.IntegerField()
     memberid = models.IntegerField()
-
-
-class post(models.Model):
-    content = models.TextField()
-    title = models.TextField()
-    author = models.CharField(max_length=20)
-    timestamp = models.IntegerField()

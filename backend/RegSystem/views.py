@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
+import json
+
 from Users.jwtauth import *
 
-import json
 import Users.views
+import Post.views
 
 
 def user_auth(fn):
@@ -12,29 +14,21 @@ def user_auth(fn):
         if verify(request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
             return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
-
     return wrapped_func
-
-
 def admin_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if verify_admin(
                 request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
             return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
-
     return wrapped_func
-
-
 def admin_post_auth(fn):
     def wrapped_func(request, *args, **kwargs):
         if request.method == 'POST' and verify_admin(
                 request.META.get("HTTP_AUTHORIZATION").split()[1]) == False:
             return HttpResponse(status=401)
         return fn(request, *args, **kwargs)
-
     return wrapped_func
-
 
 def get_username(request):
     try:
@@ -48,14 +42,12 @@ def get_username(request):
 def hello(request):
     return HttpResponse("Hello world !")
 
-
 @csrf_exempt
 def login(request):
     data = request.body.decode('utf-8')
     signIn_info = json.loads(data)
     ret = Users.views.signIn(**signIn_info)
     return HttpResponse(json.dumps(ret, ensure_ascii=False))
-
 
 @csrf_exempt
 def register(request):
@@ -97,19 +89,13 @@ def checkExistence(request):
 @admin_post_auth
 def postboard(request):
     if request.method == 'GET':
-        ret = Users.views.getPostboard()
+        ret = Post.views.getPostboard()
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
     if request.method == 'POST':
         print("get in ")
         data = request.body.decode('utf-8')
         registerIn_info = json.loads(data)
 
-        #dictionary = {}
-        #if 'id' in registerIn_info:
-        #    dictionary['id'] = registerIn_info['id']
-        #dictionary['content'] = registerIn_info['content']
-        #dictionary['author'] = registerIn_info['author']
-        #dictionary['title'] = registerIn_info['title']
-
-        ret = Users.views.postPostboard(**registerIn_info)
+        ret = Post.views.postPostboard(**registerIn_info) if 'id' in registerIn_info \
+            else Post.views.postPostboard(**registerIn_info, id = None)
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
