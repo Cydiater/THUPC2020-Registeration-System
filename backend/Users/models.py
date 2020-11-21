@@ -29,4 +29,3 @@ class post(models.Model):
     title = models.TextField()
     author = models.CharField(max_length=20)
     timestamp = models.IntegerField()
-    post_id = models.IntegerField()

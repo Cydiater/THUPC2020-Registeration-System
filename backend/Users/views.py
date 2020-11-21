@@ -119,8 +119,6 @@ def modifyMemberinfo(teamname, members):
             else:
                 memb.delete()
                 edge.delete()
-                memb.save()
-                edge.save()
 
         for memb in members:
             memberId = member.objects.create(**memb).id
@@ -142,36 +140,36 @@ def getPostboard():
         dictionary['content'] = p.content
         dictionary['author'] = p.author
         dictionary['timestamp'] = p.timestamp
-        dictionary['post_id'] = p.post_id
+        dictionary['post_id'] = p.id
         dictionary['title'] = p.title
         return_list.append(dictionary)
     return return_list
 
 
-def postPostboard(dictionary):
-    if 'id' in dictionary:
-        if dictionary['id'] >= post.objects.count():
-            return {'status': 'error', 'msg': 'invalid id'}
-        if dictionary['content'] == '' or dictionary['content'] == None:
-            target_post = post.objects.get(post_id=dictionary['id'])
-            target_post.delete()
-            return {'status': 'ok', 'msg': 'successfully deleted'}
-        target_post = post.objects.get(post_id=dictionary['id'])
-        target_post.content = dictionary['content']
-        target_post.author = dictionary['author']
-        target_post.title = dictionary['title']
-        target_post.timestamp = time.time()
-        target_post.save()
-        return {'status': 'ok', 'msg': 'successfully edited'}
-    else:
-        if post.objects.count() == 0:
-            new_id = 0
+def postPostboard(id, content, author, title, timestamp):
+    res={}
+    if id != None:
+        try:
+            target_post = post.objects.get(id = id)
+        except:
+            res = {'status': 'error', 'msg': 'invalid id'}
         else:
-            new_id = post.objects.all().order_by('-post_id')[0].post_id + 1
-        post.objects.create(content=dictionary['content'],
-                            author=dictionary['author'],
+            if content == None or content == '':
+                target_post.delete()
+                res = {'status': 'ok', 'msg': 'successfully deleted'}
+            else:
+                target_post.content = content
+                target_post.author = author
+                target_post.title = title
+                target_post.timestamp = time.time()
+                target_post.save()
+                res = {'status': 'ok', 'msg': 'successfully edited'}
+    else:
+        post.objects.create(content=content,
+                            author=author,
                             timestamp=time.time(),
-                            post_id=new_id,
-                            title=dictionary['title'])
+                            title=title)
 
-        return {'status': 'ok', 'msg': 'successfully added'}
+        res = {'status': 'ok', 'msg': 'successfully added'}
+
+    return res

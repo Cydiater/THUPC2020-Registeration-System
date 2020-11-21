@@ -96,20 +96,20 @@ def checkExistence(request):
 @csrf_exempt
 @admin_post_auth
 def postboard(request):
-    print("get in ")
     if request.method == 'GET':
         ret = Users.views.getPostboard()
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
     if request.method == 'POST':
+        print("get in ")
         data = request.body.decode('utf-8')
         registerIn_info = json.loads(data)
-        dictionary = {}
-        try:
-            dictionary['id'] = registerIn_info['id']
-        except:
-            pass
-        dictionary['content'] = registerIn_info['content']
-        dictionary['author'] = registerIn_info['author']
-        dictionary['title'] = registerIn_info['title']
-        ret = Users.views.postPostboard(dictionary)
+
+        #dictionary = {}
+        #if 'id' in registerIn_info:
+        #    dictionary['id'] = registerIn_info['id']
+        #dictionary['content'] = registerIn_info['content']
+        #dictionary['author'] = registerIn_info['author']
+        #dictionary['title'] = registerIn_info['title']
+
+        ret = Users.views.postPostboard(**registerIn_info)
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
