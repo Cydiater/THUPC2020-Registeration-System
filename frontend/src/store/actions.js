@@ -58,6 +58,7 @@ export default {
   logout({ commit }) {
     userService.logout();
     commit('clearAll');
+    location.reload();
   },
   deleteAnnouncement({ commit, dispatch }, id) {
     commit('setStatus', 'waitForDeleteAnnouncement');

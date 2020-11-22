@@ -20,9 +20,9 @@
           >
 
           <v-col
-            cols = 5
+            cols = 3
             >
-              THUPC2020 Registeration System
+              THUPC2021 报名系统
           </v-col>
 
           <v-col
@@ -41,7 +41,7 @@
             >
             <a href = 'https://www.kuaishou.com/'>
               <v-img 
-                height = "30px"
+                height = "40px"
                 src = '@/assets/kuaishou.png'
                 contain
                 class = 'ma-0'
@@ -50,11 +50,11 @@
           </v-col>
 
           <v-col
-            cols = 1
+            cols = 2
             >
             <a href = 'https://www.xuetangx.com'>
               <v-img 
-                height = "50px"
+                height = "70px"
                 src = '@/assets/xuetang.png'
                 contain
                 class = 'ma-0'
@@ -73,7 +73,7 @@
         v-if = '!isLoggedIn()'
         class = 'white--text'
         >
-        <span>Sign up</span>
+        <span>报名</span>
       </v-btn>
 
       <v-btn 
@@ -82,7 +82,7 @@
         v-if = '!isLoggedIn()'
         class = 'white--text'
         >
-        <span class = 'font-weight-bold'>Login</span>
+        <span class = 'font-weight-bold'>登录</span>
 
       </v-btn>
 
@@ -92,7 +92,7 @@
         v-if = 'isLoggedIn()'
         class = 'white--text'
         >
-        Logout
+        登出
       </v-btn>
 
 
@@ -184,9 +184,9 @@ export default {
   },
   watch: {
     user() {
-      if (this.$store.state.user && !this.links.find( link => link.text == 'Profile' )) {
+      if (this.$store.state.user && !this.links.find( link => link.text == '报名信息' )) {
         this.links.push({
-          text: 'Profile',
+          text: '报名信息',
           route: '/profile',
           icon: 'mdi-information',
         });

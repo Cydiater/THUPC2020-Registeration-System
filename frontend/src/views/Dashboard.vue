@@ -6,7 +6,7 @@
     >
 
     <vue-headful
-      title = 'THUPC2020 Registeration System'
+      title = 'THUPC2021 报名系统'
       >
     </vue-headful>
 
@@ -16,7 +16,6 @@
       flat
       >
 
-      <v-card-title>公告</v-card-title>
       <v-card-text>
 
         <v-list

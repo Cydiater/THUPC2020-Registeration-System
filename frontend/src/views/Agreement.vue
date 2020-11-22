@@ -5,12 +5,13 @@
     align="center"
     justify="center"
     >
-    <vue-headful title = 'THUPC2020 Registeration System'></vue-headful>
-    <v-col
-      :cols = 6
-      >
-      <v-card>
-        <v-card-title>报名条款</v-card-title>
+    <vue-headful title = 'THUPC2021 报名系统'></vue-headful>
+    <v-col>
+      <v-card
+        class = 'mx-auto'
+        width="800px"
+        >
+        <v-card-title class = 'primary--text'>报名条款</v-card-title>
         <v-card-text>
           <vue-markdown
             mode = 'viewer'
@@ -43,7 +44,7 @@ export default {
 
 # 服务内容
 
-THUPC 为参赛选手提供线上和线下比赛服务，包括活动策划组织、题目命制、平台开发维护、比赛相关问题答疑等。我们会尽力提供服务，但不保证服务一定满足选手的所有要求，也对服务的持续性、及时性做出保证。
+THUPC 为参赛选手提供线上和线下比赛服务，包括活动策划组织、题目命制、平台开发维护、比赛相关问题答疑等。我们会尽力提供服务，但不保证服务一定满足选手的所有要求，也不对服务的持续性、及时性做出保证。
 
 # 选手账户
 

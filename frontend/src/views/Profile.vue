@@ -7,22 +7,22 @@
     >
 
     <vue-headful
-      title = 'THUPC2020 Registeration System'
+      title = 'THUPC2021 报名系统'
       >
     </vue-headful>
 
-    <v-col
-      :cols = '6'
-      >
+    <v-col>
 
     <v-card
       v-if = 'isLoggedIn'
+      width="800px"
+      class = 'mx-auto'
       >
 
       <v-card-title
         class = 'primary--text'
         >
-        Registeration Infomation
+        报名信息
       </v-card-title>
 
       <v-card-text

@@ -5,7 +5,7 @@
     height = '90%'
     >
     <v-card>
-      <v-card-title class = 'headline blue darken-2 blue--text text--lighten-5'>
+      <v-card-title class = 'headline primary white--text'>
         Post Announcement
       </v-card-title>
       <v-card-text
