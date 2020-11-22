@@ -7,7 +7,7 @@
 
     <v-card>
 
-      <v-card-title class = 'headline blue darken-2 blue--text text--lighten-5'>
+      <v-card-title class = 'headline primary white--text'>
         Sign up
       </v-card-title>
 
@@ -84,7 +84,7 @@
 
                       <v-checkbox
                         v-model = 'agree'
-                        label = 'Agree to terms of enrollment'
+                        label = '同意报名条款'
                         ></v-checkbox>
 
                     </v-tab-item>

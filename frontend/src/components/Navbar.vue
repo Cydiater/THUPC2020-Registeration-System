@@ -16,10 +16,11 @@
         <v-row
           align="center"
           justify="start"
+          style = 'width: 900px;'
           >
 
           <v-col
-            cols = 4
+            cols = 5
             >
               THUPC2020 Registeration System
           </v-col>
@@ -40,7 +41,7 @@
             >
             <a href = 'https://www.kuaishou.com/'>
               <v-img 
-                height = "40px"
+                height = "30px"
                 src = '@/assets/kuaishou.png'
                 contain
                 class = 'ma-0'
@@ -53,7 +54,7 @@
             >
             <a href = 'https://www.xuetangx.com'>
               <v-img 
-                height = "40px"
+                height = "50px"
                 src = '@/assets/xuetang.png'
                 contain
                 class = 'ma-0'
@@ -151,10 +152,15 @@ export default {
       showSidebar: false,
       links: [
         {
-          text: 'Dashboard',
+          text: '公告栏',
           route: '/',
           icon: 'mdi-view-dashboard',
         },
+        {
+          text: '报名条款',
+          route: '/agreement',
+          icon: 'mdi-information',
+        }
       ]
     }
   },

@@ -13,6 +13,7 @@
     <v-card
       width="800px"
       class = 'mx-auto my-2'
+      flat
       >
 
       <v-card-title>公告</v-card-title>
