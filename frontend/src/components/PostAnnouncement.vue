@@ -6,7 +6,7 @@
     >
     <v-card>
       <v-card-title class = 'headline primary white--text'>
-        Post Announcement
+        发布公告
       </v-card-title>
       <v-card-text
         >

@@ -159,7 +159,7 @@ export default {
         {
           text: '报名条款',
           route: '/agreement',
-          icon: 'mdi-information',
+          icon: 'mdi-file-multiple',
         }
       ]
     }
