@@ -8,7 +8,7 @@
     <v-card>
 
       <v-card-title class = 'headline primary white--text'>
-        Sign up
+        报名
       </v-card-title>
 
       <v-card-text
@@ -30,10 +30,10 @@
 
                 <v-tabs>
 
-                  <v-tab>Basic</v-tab>
-                  <v-tab>Member 1</v-tab>
-                  <v-tab>Member 2</v-tab>
-                  <v-tab>Member 3</v-tab>
+                  <v-tab>队伍基本信息</v-tab>
+                  <v-tab>队员 1</v-tab>
+                  <v-tab>队员 2</v-tab>
+                  <v-tab>队员 3</v-tab>
 
                   <v-tabs-slider></v-tabs-slider>
 
@@ -43,7 +43,7 @@
                       >
 
                       <v-text-field
-                        label = 'Team Name'
+                        label = '队伍名称'
                         prepend-icon = "mdi-account-group"
                         v-model = 'username'
                         :rules = '[rules.rangeLength(3, 20), rules.preventNullCharacter]'
@@ -51,7 +51,7 @@
                       </v-text-field>
 
                       <v-text-field
-                        label = 'Password'
+                        label = '密码'
                         type = 'password'
                         prepend-icon = "mdi-lock"
                         v-model = 'password'
@@ -60,7 +60,7 @@
                       </v-text-field>
 
                       <v-text-field
-                        label = 'Confirm Password'
+                        label = '确认密码'
                         type = 'password'
                         prepend-icon = "mdi-lock"
                         v-model = 'confirm_password'
@@ -71,7 +71,7 @@
                       <v-select
                         prepend-icon = "mdi-compare-vertical"
                         v-model = 'type'
-                        label = 'Type'
+                        label = '队伍类型'
                         :items = '["A", "B", "C"]'
                         >
                       </v-select>
@@ -97,7 +97,7 @@
                       >
 
                       <v-text-field
-                        label = 'Member Name'
+                        label = '队员姓名'
                         prepend-icon = "mdi-account"
                         v-model = 'member.name'
                         :rules = '[rules.rangeLength(2, 10), rules.preventNullCharacter]'
@@ -105,7 +105,7 @@
                       </v-text-field>
 
                       <v-text-field
-                        label = 'Email'
+                        label = '电子邮箱'
                         prepend-icon="mdi-email"
                         v-model = 'member.email'
                         :rules = '[rules.checkEmail]'
@@ -113,7 +113,7 @@
                       </v-text-field>
 
                       <v-text-field
-                        label = 'School'
+                        label = '就读学校'
                         prepend-icon = "mdi-school"
                         v-model = 'member.school'
                         :rules = '[rules.rangeLength(2, 100)]'
@@ -121,14 +121,14 @@
                       </v-text-field>
 
                       <v-text-field
-                        label = 'Phone'
+                        label = '电话号码'
                         prepend-icon = "mdi-phone"
                         v-model = 'member.phone'
                         >
                       </v-text-field>
 
                       <v-text-field
-                        label = 'Location'
+                        label = '收货地址'
                         prepend-icon = "mdi-google-maps"
                         v-model = 'member.location'
                         >
@@ -136,7 +136,7 @@
 
                       <v-select
                         :items = "['Male', 'Female']"
-                        label = 'Gender'
+                        label = '性别'
                         prepend-icon = "mdi-gender-male-female"
                         v-model = 'member.gender'
                         required
@@ -167,7 +167,7 @@
           :loading = 'waitForRegister'
           @click = 'registerRequest({ username, password, members, type })'
           >
-          Sign up
+          提交
         </v-btn>
       </v-card-actions>
 

@@ -44,10 +44,10 @@
 
               <v-tabs>
 
-                <v-tab>Basic</v-tab>
-                <v-tab>Member 1</v-tab>
-                <v-tab>Member 2</v-tab>
-                <v-tab>Member 3</v-tab>
+                <v-tab>队伍基本信息</v-tab>
+                <v-tab>队员 1</v-tab>
+                <v-tab>队员 2</v-tab>
+                <v-tab>队员 3</v-tab>
 
                 <v-tabs-slider></v-tabs-slider>
 
@@ -57,7 +57,7 @@
                   >
 
                   <v-text-field
-                    label = 'Team Name'
+                    label = '队伍名称'
                     prepend-icon = "mdi-account-group"
                     :value = 'username'
                     readonly
@@ -67,7 +67,7 @@
                   <v-select
                     prepend-icon = "mdi-compare-vertical"
                     :value = 'type'
-                    label = 'Type'
+                    label = '队伍类型'
                     :items = '["A", "B", "C"]'
                     readonly
                     >
@@ -98,7 +98,7 @@
                       class = 'py-0'
                       >
                       <v-text-field
-                        label = 'Member Name'
+                        label = '队员姓名'
                         prepend-icon = "mdi-account"
                         v-model = 'member.name'
                         :rules = '[rules.rangeLength(2, 10)]'
@@ -112,7 +112,7 @@
                       class = 'py-0'
                       >
                       <v-text-field
-                        label = 'Email'
+                        label = '电子邮箱'
                         prepend-icon="mdi-email"
                         v-model = 'member.email'
                         :rules = '[rules.checkEmail]'
@@ -152,7 +152,7 @@
                       class = 'py-0'
                       >
                       <v-text-field
-                        label = 'School'
+                        label = '就读学校'
                         prepend-icon = "mdi-school"
                         v-model = 'member.school'
                         :rules = '[rules.rangeLength(2, 100)]'
@@ -166,8 +166,8 @@
                       class = 'py-0'
                       >
                       <v-text-field
-                        label = 'Phone'
                         prepend-icon = "mdi-phone"
+                        label = '电话号码'
                         v-model = 'member.phone'
                         >
                       </v-text-field>
@@ -178,8 +178,8 @@
                       class = 'py-0'
                       >
                       <v-text-field
-                        label = 'Location'
                         prepend-icon = "mdi-google-maps"
+                        label = '收货地址'
                         v-model = 'member.location'
                         >
                       </v-text-field>
@@ -191,7 +191,7 @@
                       >
                       <v-select
                         :items = "['Male', 'Female']"
-                        label = 'Gender'
+                        label = '性别'
                         prepend-icon = "mdi-gender-male-female"
                         v-model = 'member.gender'
                         >
@@ -222,7 +222,7 @@
           @click = 'editProfile( members )' 
           color = 'primary' 
           :loading = 'waitForEditingProfile'>
-          Update
+          更新个人信息
         </v-btn>
       </v-card-actions>
 

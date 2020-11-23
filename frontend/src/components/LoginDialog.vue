@@ -7,7 +7,7 @@
 
       <v-card>
         <v-card-title class = 'headline primary white--text'>
-          Login
+          登录
         </v-card-title>
         <v-card-text
           class = 'pb-0'
@@ -22,7 +22,7 @@
                   >
                   <v-text-field
                     v-model = 'username'
-                    label = "Team Name"
+                    label = "队伍名称"
                     prepend-icon = "mdi-account-group"
                     :rules = '[rules.rangeLength(3, 20), rules.preventNullCharacter]'
                     ></v-text-field>
@@ -34,7 +34,7 @@
                   >
                   <v-text-field
                     v-model = 'password'
-                    label = "Password"
+                    label = "密码"
                     type = "password"
                     prepend-icon = "mdi-lock"
                     :rules = '[rules.rangeLength(8, 20)]'
@@ -54,7 +54,7 @@
             :loading = 'isWaitForLogin'
             :disabled = '!isFormVaild'
           >
-            Login
+          登录
           </v-btn>
         </v-card-actions>
       </v-card>
