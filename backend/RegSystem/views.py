@@ -1,12 +1,12 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-import json
-
 from Users.jwtauth import *
 
 import Users.views
 import Post.views
+
+import json
 
 
 def user_auth(fn):
@@ -92,10 +92,22 @@ def postboard(request):
         ret = Post.views.getPostboard()
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
     if request.method == 'POST':
-        print("get in ")
         data = request.body.decode('utf-8')
         registerIn_info = json.loads(data)
 
         ret = Post.views.postPostboard(**registerIn_info) if 'id' in registerIn_info \
             else Post.views.postPostboard(**registerIn_info, id = None)
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+@csrf_exempt
+@user_auth
+def email(request):
+    if request.method == 'GET':
+        email = request.GET.get('email')
+        ret = Users.views.getEmailVerifyStatus(email)
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
+    elif request.method == 'POST':
+        data = request.body.decode('utf-8')
+        data = json.loads(data)
+        ret = Users.views.dealEmailVerifyCode(**data)
         return HttpResponse(json.dumps(ret, ensure_ascii=False))

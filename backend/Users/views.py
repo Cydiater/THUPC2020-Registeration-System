@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.core.mail import send_mail
 from Users.models import *
 from .jwtauth import generate
+from random import randint
+
+from RegSystem import settings
 
 # Create your views here.
 
@@ -128,3 +132,41 @@ def modifyMemberinfo(teamname, members):
         res['status'] = 'failed'
         res['message'] = 'modify error'
     return res
+
+def getEmailVerifyStatus(email):
+    try:
+        memb = member.objects.get(email = email)
+    except:
+        return {'message' : '邮箱不存在'}
+    else:
+        return {'status' : memb.emailVerifyState}
+
+def dealEmailVerifyCode(action, email, code = None):
+    try:
+        memb = member.objects.get(email = email)
+    except:
+        return {'message' : '邮箱不存在'}
+
+    if action == 'send':
+        memb.emailVerifyCode = str(randint(0,999999)).zfill(6)
+        memb.emailVerifyState = 'waiting'
+        memb.save()
+
+        message = '您的验证码是: ' + memb.emailVerifyCode
+        send_mail(
+            'THUPC邮箱验证码', 
+            message = message,
+            from_email = settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email]
+        )
+
+        return {'message' : '发送成功'}
+    elif action == 'verify':
+        if code == memb.emailVerifyCode:
+            memb.emailVerifyState = 'verified'
+            memb.save()
+            return {'message' : '验证成功'}
+        else:
+            return {'message' : '验证失败'}
+    else:
+        return {'message' : 'unknow error'}

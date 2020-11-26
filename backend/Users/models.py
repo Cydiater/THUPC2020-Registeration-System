@@ -17,7 +17,8 @@ class member(models.Model):
     email = models.CharField(max_length=30, default='')
     location = models.CharField(max_length=30, default='')
     phone = models.CharField(max_length=30, default='')
-
+    emailVerifyState = models.CharField(max_length=10, default='null')
+    emailVerifyCode = models.CharField(max_length=6,default='')
 
 class user2member(models.Model):
     userid = models.IntegerField()
