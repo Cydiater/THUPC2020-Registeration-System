@@ -37,6 +37,8 @@ export default {
     state.username = null;
     state.announcements = [];
     state.currentAnnouncement = null;
+    state.emailStatus = {};
+    state.currentEmail = '';
   },
   setAnnouncements(state, announcements) {
     state.announcements = announcements;
@@ -46,5 +48,11 @@ export default {
   },
   setCurrentAnnouncement(state, announcement) {
     state.currentAnnouncement = announcement;
+  },
+  updateEmailStatus(state, { email, status }) {
+    Vue.set(state.emailStatus, email, status);
+  },
+  setCurrentEmail(state, email) {
+    state.currentEmail = email;
   }
 };

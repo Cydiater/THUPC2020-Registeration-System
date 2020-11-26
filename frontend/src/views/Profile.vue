@@ -108,7 +108,7 @@
                     </v-col>
 
                     <v-col
-                      cols = 12
+                      cols = 10
                       class = 'py-0'
                       >
                       <v-text-field
@@ -121,29 +121,46 @@
                     </v-col>
 
                     <v-col
-                      cols = 1
+                      cols = 2
                       class = 'py-0'
-                      v-if = 'false'
                       >
 
                       <v-btn
-                        v-if = 'member.emailStatus == "verified"'
-                        icon
+                        v-if = 'emailStatus[member.email] == "verified"'
+                        text
                         readonly 
                         color = 'primary'
-                        :loading = 'waitForGettingEmailStatus'
                         >
-                        <v-icon>mdi-check</v-icon>
+                        已验证
+                      </v-btn>
+
+
+                      <v-btn
+                        v-else-if = 'emailStatus[member.email] == "waiting"'
+                        text
+                        color = 'secondary'
+                        @click = 'handleEmail(member.email)'
+                        >
+                        已发送验证码
                       </v-btn>
 
                       <v-btn
-                        v-if = 'member.emailStatus == "null"'
+                        v-else-if = 'emailStatus[member.email] == "waitForResponse"'
                         text
-                        color = 'primary'
-                        :loading = 'waitForGettingEmailStatus'
+                        loading
                         >
-                        VERIFY
+                        加载中
                       </v-btn>
+
+                      <v-btn
+                        v-else
+                        text
+                        color = 'error'
+                        @click = 'verifyEmail(member.email)'
+                        >
+                        尚未验证
+                      </v-btn>
+
 
                     </v-col>
 
@@ -229,14 +246,19 @@
     </v-card>
 
     </v-col>
+    <HandleEmailDialog />
   </v-row>
 </template>
 
 <script>
 import { mapGetters, mapState, mapActions } from 'vuex';
+import HandleEmailDialog from '@/components/HandleEmailDialog';
 
 export default {
   name: 'Profile',
+  components: {
+    HandleEmailDialog,
+  },
   data() {
     return {
       isFormValid: false,
@@ -251,7 +273,6 @@ export default {
           email: '',
           phone: '',
           location: '',
-          emailStatus: 'null',
         },
         {
           name: '',
@@ -260,7 +281,6 @@ export default {
           email: '',
           phone: '',
           location: '',
-          emailStatus: 'null',
         },
         {
           name: '',
@@ -269,7 +289,6 @@ export default {
           email: '',
           phone: '',
           location: '',
-          emailStatus: 'null',
         },
       ],
       rules: {
@@ -296,29 +315,33 @@ export default {
   },
   computed: {
     ...mapGetters(['isLoggedIn']),
-    ...mapState(['user']),
+    ...mapState(['user', 'emailStatus']),
     waitForEditingProfile() {
       return Boolean(this.$store.state.status.waitForEditingProfile);
     }
   },
   methods: {
-    ...mapActions(['editProfile']),
+    ...mapActions(['editProfile', 'verifyEmail', 'handleEmail']),
   },
   created() {
     if (this.$store.getters.isLoggedIn)
       this.$store.dispatch('fetchUserInfo', localStorage.getItem('username'));
   },
   watch: {
-    async user() {
+    user() {
       if (this.$store.state.user) {
         this.username = this.$store.state.user.teamname;
         if (this.$store.state.user.type)
           this.type = this.$store.state.user.type.toUpperCase();
-        this.members = this.$store.state.user.members;
-        this.waitForGettingEmailStatus = true;
-        //for (let member of this.members) 
-            //await this.$store.dispatch('updateMemberEmailStatus', member)
-        this.waitForGettingEmailStatus = false;
+        for (let i = 0; i < 3; i++) {
+          this.members[i].name = this.$store.state.user.members[i].name;
+          this.members[i].email = this.$store.state.user.members[i].email;
+          this.members[i].school = this.$store.state.user.members[i].school;
+          this.members[i].gender = this.$store.state.user.members[i].gender;
+          this.members[i].location = this.$store.state.user.members[i].location;
+        }
+        for (let member of this.members) 
+          this.$store.dispatch('updateMemberEmailStatus', member.email);
       }
     }
   }

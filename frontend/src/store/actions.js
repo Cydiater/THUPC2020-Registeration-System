@@ -113,12 +113,46 @@ export default {
       commit('notify', { type: 'error', message: error });
     })
   },
-  async updateMemberEmailStatus({ commit }, member) {
-    userService.getEmailStatus(member.email)
+  verifyEmail({ commit, dispatch }, email) {
+    commit('updateEmailStatus', { email, status: 'waitForResponse' })
+    userService.sendVerificationEmail(email)
+    .then(() => {
+      commit('notify', { type: 'success', message: '已发送验证码' });
+      dispatch('fetchUserInfo', store.state.username);
+    }, error => {
+      commit('notify', { type: 'error', message: error });
+    })
+  },
+  updateMemberEmailStatus({ commit }, email) {
+    userService.getEmailStatus(email)
     .then(res => {
-      member.emailStatus = res.status;
+      commit('updateEmailStatus', { email, status: res.status });
     }, error => {
       commit('notify', { type: 'error', message: error });
     });
+  },
+  handleEmail({ commit }, email) {
+    commit('setStatus', 'handlingEmail');
+    commit('setCurrentEmail', email);
+  },
+  verifyCode({ commit, dispatch }, { email, code }) {
+    commit('setStatus', 'waitForVerifingCode');
+    userService.checkEmailCode(email, code)
+    .then(() => {
+      userService.getEmailStatus(email)
+      .then(res => {
+        if (res.status == "verified") {
+          commit('notify', { type: 'success', message: '验证成功' });
+          commit('clearStatus', 'waitForVerifingCode');
+          commit('clearStatus', 'handlingEmail');
+          dispatch('fetchUserInfo', store.state.username);
+        } else {
+          commit('notify', { type: 'error', message: '验证失败' });
+        }
+      })
+    }, error => {
+      commit('notify', { type: 'error', message: error });
+      commit('clearStatus', 'waitForVerifingCode');
+    })
   }
 };

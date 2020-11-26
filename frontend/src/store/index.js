@@ -19,6 +19,8 @@ const state = {
   user: null,
   announcements: [],
   currentAnnouncement: null,
+  emailStatus: {},
+  currentEmail: '',
 };
 
 const store = new Vuex.Store({
