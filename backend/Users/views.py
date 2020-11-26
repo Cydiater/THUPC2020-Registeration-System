@@ -135,7 +135,7 @@ def modifyMemberinfo(teamname, members):
 
 def getEmailVerifyStatus(email):
     try:
-        memb = member.objects.get(email = email)
+        memb = member.objects.filter(email=email).order_by('id')[0]
     except:
         return {'message' : '邮箱不存在'}
     else:
@@ -143,11 +143,14 @@ def getEmailVerifyStatus(email):
 
 def dealEmailVerifyCode(action, email, code = None):
     try:
-        memb = member.objects.get(email = email)
+        memb = member.objects.filter(email=email).order_by('id')[0]
     except:
         return {'message' : '邮箱不存在'}
 
     if action == 'send':
+        if memb.emailVerifyState == 'verified':
+            return {'message' : '邮箱已验证，无需重复验证'}
+
         memb.emailVerifyCode = str(randint(0,999999)).zfill(6)
         memb.emailVerifyState = 'waiting'
         memb.save()
