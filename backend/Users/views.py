@@ -87,7 +87,7 @@ def getUserinfo(teamname):
                     'phone': memb.phone,
                     'location': memb.location
                 })
-    
+
     while len(res['members'])<3 :
         res['members'].append({})
 
@@ -134,30 +134,34 @@ def modifyMemberinfo(teamname, members):
     return res
 
 def getEmailVerifyStatus(email):
-    try:
-        memb = member.objects.filter(email=email).order_by('id')[0]
-    except:
-        return {'message' : '邮箱不存在'}
-    else:
-        return {'status' : memb.emailVerifyState}
+    emails = Email.objects.filter(email=email)
+    if emails.count() > 0:
+        emailObj = emails[0]
+        return {'status': emailObj.emailVerifyState}
+    emailObj = Email.objects.create()
+    emailObj.email = email
+    emailObj.emailVerifyState = 'null'
+    emailObj.save()
+    return {'status': 'null'};
 
 def dealEmailVerifyCode(action, email, code = None):
-    try:
-        memb = member.objects.filter(email=email).order_by('id')[0]
-    except:
-        return {'message' : '邮箱不存在'}
+    emails = Email.objects.filter(email=email)
+    if emails.count() == 0:
+        return {'message': '尚未发送验证码'}
+
+    emailObj = emails[0]
 
     if action == 'send':
-        if memb.emailVerifyState == 'verified':
+        if emailObj.emailVerifyState == 'verified':
             return {'message' : '邮箱已验证，无需重复验证'}
 
-        memb.emailVerifyCode = str(randint(0,999999)).zfill(6)
-        memb.emailVerifyState = 'waiting'
-        memb.save()
+        emailObj.emailVerifyCode = str(randint(0,999999)).zfill(6)
+        emailObj.emailVerifyState = 'waiting'
+        emailObj.save()
 
-        message = '您的验证码是: ' + memb.emailVerifyCode
+        message = '您的验证码是: ' + emailObj.emailVerifyCode
         send_mail(
-            'THUPC邮箱验证码', 
+            'THUPC邮箱验证码',
             message = message,
             from_email = settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email]
@@ -165,9 +169,9 @@ def dealEmailVerifyCode(action, email, code = None):
 
         return {'message' : '发送成功'}
     elif action == 'verify':
-        if code == memb.emailVerifyCode:
-            memb.emailVerifyState = 'verified'
-            memb.save()
+        if code == emailObj.emailVerifyCode:
+            emailObj.emailVerifyState = 'verified'
+            emailObj.save()
             return {'message' : '验证成功'}
         else:
             return {'message' : '验证失败'}
