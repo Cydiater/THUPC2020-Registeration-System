@@ -336,6 +336,7 @@ export default {
         for (let i = 0; i < 3; i++) {
           this.members[i].name = this.$store.state.user.members[i].name;
           this.members[i].email = this.$store.state.user.members[i].email;
+          this.members[i].phone = this.$store.state.user.members[i].phone;
           this.members[i].school = this.$store.state.user.members[i].school;
           this.members[i].gender = this.$store.state.user.members[i].gender;
           this.members[i].location = this.$store.state.user.members[i].location;
