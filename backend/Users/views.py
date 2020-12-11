@@ -8,6 +8,25 @@ from RegSystem import settings
 
 # Create your views here.
 
+def checkUserValid(teamname): 
+    '''
+    检查是否所有邮箱都验证了
+    '''
+    isvalid = True
+    try:
+        usr = user.objects.get(teamname = teamname)
+        for link in user2member.objects.filter(userid = usr.id):
+            memb = member.objects.get(id = link.memberid)
+            try:
+                email = Email.objects.get(email=memb.email)
+            except:
+                isvalid = False
+            else:
+                if email.emailVerifyState != 'verified':
+                    isvalid = False
+    except:
+        isvalid = False
+    return isvalid
 
 def signIn(username, password):
     res = {}
@@ -73,9 +92,14 @@ def getUserinfo(teamname):
         res['isAdmin'] = usr.isAdmin
         res['members'] = []
 
-        ojac = OJaccount.objects.get(id = usr.id)
-        res['OJaccount'] = ojac.account
-        res['OJpassword'] = ojac.password
+        if checkUserValid(teamname):
+            ojac = OJaccount.objects.get(id = usr.id)
+            res['OJaccount'] = ojac.account
+            res['OJpassword'] = ojac.password
+        else :
+            res['OJaccount'] = '请验证所有邮箱'
+            res['OJpassword'] = 'null'
+
 
         for edge in user2member.objects.filter(userid=usr.id):
             try:
