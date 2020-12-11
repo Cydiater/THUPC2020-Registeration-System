@@ -73,6 +73,10 @@ def getUserinfo(teamname):
         res['isAdmin'] = usr.isAdmin
         res['members'] = []
 
+        ojac = OJaccount.objects.get(id = usr.id)
+        res['OJaccount'] = ojac.account
+        res['OJpassword'] = ojac.password
+
         for edge in user2member.objects.filter(userid=usr.id):
             try:
                 memb = member.objects.get(id=edge.memberid)
